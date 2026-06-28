@@ -1,1 +1,2901 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Магистратура тесті / Тест для магистратуры</title>
+<style>
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --text:#172033;
+  --muted:#667085;
+  --line:#e5e7eb;
+  --main:#4f46e5;
+  --main2:#7c3aed;
+  --soft:#eef2ff;
+  --good:#16a34a;
+  --bad:#dc2626;
+  --warn:#f59e0b;
+  --shadow:0 16px 40px rgba(15,23,42,.08);
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+body.lang-kk .ru{display:none!important}
+body.lang-ru .kk{display:none!important}
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:16px;
+}
+.top{
+  position:relative;
+  background:transparent;
+}
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:12px 0;
+}
+.brand{
+  font-weight:950;
+  letter-spacing:-.02em;
+}
+.lang{
+  display:flex;
+  gap:8px;
+}
+.lang button{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--text);
+  border-radius:14px;
+  padding:9px 14px;
+  font-weight:900;
+  cursor:pointer;
+}
+.lang button.active{
+  background:var(--main);
+  color:#fff;
+  border-color:var(--main);
+}
+.hero{
+  padding:20px 0 18px;
+}
+.heroBox{
+  background:linear-gradient(135deg,#ffffff 0%,#eef2ff 100%);
+  border:1px solid var(--line);
+  border-radius:30px;
+  box-shadow:var(--shadow);
+  padding:28px;
+}
+h1{
+  margin:0 0 12px;
+  font-size:clamp(30px,5vw,54px);
+  line-height:1;
+  letter-spacing:-.04em;
+}
+h2{
+  margin:0 0 10px;
+  font-size:clamp(24px,3vw,38px);
+  letter-spacing:-.03em;
+}
+h3{
+  margin:0 0 12px;
+  font-size:22px;
+}
+p{
+  line-height:1.65;
+}
+.heroText{
+  max-width:880px;
+  color:#344054;
+}
+.noticeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+.notice{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  color:#344054;
+}
+.quickCards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:18px 0 0;
+}
+.quickCards a{
+  background:#fff;
+  border:1px solid #dbe3ff;
+  border-radius:20px;
+  padding:16px;
+  text-decoration:none;
+  color:var(--text);
+  box-shadow:0 8px 24px rgba(79,70,229,.10);
+  font-weight:950;
+}
+.quickCards a span{
+  display:block;
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+}
+section{
+  padding:28px 0;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  margin:16px 0;
+}
+.sectionLead{
+  color:#475467;
+  margin-top:0;
+}
+.q{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  margin:14px 0;
+}
+.qTitle{
+  font-weight:900;
+  margin:0 0 12px;
+  line-height:1.55;
+}
+.options{
+  display:grid;
+  gap:8px;
+}
+.option{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  background:#f9fafb;
+  border:1px solid #edf0f3;
+  border-radius:14px;
+  padding:10px 12px;
+  cursor:pointer;
+}
+.option:hover{
+  background:#eef2ff;
+}
+.option input{
+  margin-top:3px;
+}
+.q.correct{
+  border-color:#86efac;
+  background:#f0fdf4;
+}
+.q.wrong{
+  border-color:#fca5a5;
+  background:#fff1f2;
+}
+.option.good{
+  border-color:#86efac;
+  background:#dcfce7;
+  color:#14532d;
+  font-weight:900;
+}
+.option.bad{
+  border-color:#fca5a5;
+  background:#fee2e2;
+}
+.explanation{
+  display:none;
+  margin-top:12px;
+  background:#f8fafc;
+  border:1px solid #e8edf5;
+  border-radius:16px;
+  padding:12px;
+}
+.q.show .explanation{
+  display:block;
+}
+.steps{
+  margin:8px 0 0;
+  padding-left:22px;
+}
+.steps li{
+  margin:7px 0;
+  line-height:1.65;
+}
+.result{
+  margin-top:14px;
+  font-weight:950;
+  font-size:18px;
+}
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+.btn{
+  border:0;
+  background:linear-gradient(135deg,var(--main),var(--main2));
+  color:#fff;
+  border-radius:14px;
+  padding:11px 16px;
+  font-weight:950;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.btn.secondary{
+  background:#fff;
+  color:var(--text);
+  border:1px solid var(--line);
+}
+.textBlock{
+  background:#fbfdff;
+  border:1px solid #e8edf5;
+  border-radius:18px;
+  padding:15px;
+  margin:15px 0;
+  line-height:1.75;
+}
+.textBlock h4{
+  margin:0 0 10px;
+  font-size:18px;
+}
+.audioBox{
+  background:#fbfdff;
+  border:1px solid #e8edf5;
+  border-radius:20px;
+  padding:15px;
+  margin:15px 0;
+}
+audio{
+  width:100%;
+  margin-top:8px;
+}
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:12px 0;
+}
+.tab{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:14px;
+  padding:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+.tab.active{
+  background:var(--main);
+  color:#fff;
+  border-color:var(--main);
+}
+.tabContent{
+  display:none;
+  background:#fbfdff;
+  border:1px solid #e8edf5;
+  border-radius:18px;
+  padding:15px;
+  line-height:1.75;
+}
+.tabContent.active{
+  display:block;
+}
+.vocabGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.vocabItem{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:10px;
+}
+.svgBox{
+  display:flex;
+  justify-content:center;
+  overflow:auto;
+  background:#fbfdff;
+  border:1px solid #e8edf5;
+  border-radius:18px;
+  padding:12px;
+  margin:12px 0;
+}
+svg{
+  max-width:100%;
+  height:auto;
+}
+.table{
+  width:100%;
+  max-width:680px;
+  border-collapse:collapse;
+  margin:12px 0;
+  background:#fff;
+}
+.table th,.table td{
+  border:1px solid #cbd5e1;
+  padding:8px;
+  text-align:center;
+}
+.frac{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  vertical-align:middle;
+  line-height:1;
+  font-weight:800;
+  margin:0 2px;
+}
+.frac span:first-child{
+  border-bottom:1.5px solid currentColor;
+  padding:0 4px 2px;
+}
+.frac span:last-child{
+  padding-top:2px;
+}
+.mix{
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+}
+.overallBox{
+  background:#111827;
+  color:#fff;
+  border-radius:24px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+.overallBox .muted{
+  color:#cbd5e1;
+}
+@media(max-width:760px){
+  .noticeGrid,.quickCards,.vocabGrid{
+    grid-template-columns:1fr;
+  }
+  .tabs{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .heroBox{
+    padding:20px;
+  }
+}
+</style>
+</head>
+<body class="lang-kk">
+<header class="top">
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="kk">Магистратура тесті</span>
+      <span class="ru">Тест для магистратуры</span>
+    </div>
+    <div class="lang">
+      <button type="button" class="active" data-lang="kk">KZ</button>
+      <button type="button" data-lang="ru">RU</button>
+    </div>
+  </div>
+</header>
 
+<main class="wrap">
+  <section class="hero">
+    <div class="heroBox">
+      <h1>
+        <span class="kk">Магистратура тесті: сыни ойлау, аналитикалық ойлау және ағылшын тілі</span>
+        <span class="ru">Тест для магистратуры: критическое мышление, аналитическое мышление и английский язык</span>
+      </h1>
+      <p class="heroText">
+        <span class="kk">Бұл сайт магистратураға дайындалуға арналған интерактивті тест форматы. Әр бөлім бойынша жауап беріп, нәтижені көре аласыз.</span>
+        <span class="ru">Интерактивный тестовый сайт для подготовки к магистратуре. Выберите ответы и проверьте результат по каждому блоку.</span>
+      </p>
+
+      <div class="noticeGrid">
+        <div class="notice">
+          <b>
+            <span class="kk">Тегін материал</span>
+            <span class="ru">Бесплатный материал</span>
+          </b>
+          <br>
+          <span class="kk">Бұл сайт тегін дайындық үшін берілген. Материалды сатуға болмайды.</span>
+          <span class="ru">Этот сайт предназначен для бесплатной подготовки. Материал нельзя продавать.</span>
+        </div>
+        <div class="notice">
+          <b>Telegram</b><br>
+          <span class="kk">Осындай форматтағы тегін тесттер мен материалдар Telegram-каналда бар.</span>
+          <span class="ru">Бесплатные тесты и материалы в таком же формате есть в Telegram-канале.</span>
+          <br><br>
+          <a class="btn" href="https://t.me/+jtaSqR4E3CI2MjUy" target="_blank">Telegram</a>
+        </div>
+      </div>
+
+      <div class="quickCards">
+        <a href="#critical">
+          <span class="kk">Сыни ойлау</span>
+          <span class="ru">Критическое мышление</span>
+          <span class="kk">1–15 тапсырмалар</span>
+          <span class="ru">Задания 1–15</span>
+        </a>
+        <a href="#analytical">
+          <span class="kk">Аналитикалық ойлау</span>
+          <span class="ru">Аналитическое мышление</span>
+          <span class="kk">16–30 тапсырмалар</span>
+          <span class="ru">Задания 16–30</span>
+        </a>
+        <a href="#english">
+          <span class="kk">Ағылшын тілі</span>
+          <span class="ru">Английский язык</span>
+          <span class="kk">Listening, Grammar, Reading</span>
+          <span class="ru">Listening, Grammar, Reading</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="critical">
+    <h2>
+      <span class="kk">Сыни ойлау</span>
+      <span class="ru">Критическое мышление</span>
+    </h2>
+    <p class="sectionLead">
+      <span class="kk">Математикалық, логикалық, кестелік және графикалық тапсырмалар.</span>
+      <span class="ru">Математические, логические, табличные и графические задания.</span>
+    </p>
+    <div class="card" data-test="critical">
+      <h3>
+        <span class="kk">1–15 тапсырмалар</span>
+        <span class="ru">Задания 1–15</span>
+      </h3>
+      <div id="criticalQuestions"></div>
+      <div class="actions">
+        <button class="btn" type="button" onclick="checkTest('critical')">
+          <span class="kk">Нәтижені көрсету</span>
+          <span class="ru">Показать результат</span>
+        </button>
+        <button class="btn secondary" type="button" onclick="resetTest('critical')">
+          <span class="kk">Қайта өту</span>
+          <span class="ru">Пройти заново</span>
+        </button>
+      </div>
+      <div class="result" id="criticalResult"></div>
+    </div>
+  </section>
+
+  <section id="analytical">
+    <h2>
+      <span class="kk">Аналитикалық ойлау</span>
+      <span class="ru">Аналитическое мышление</span>
+    </h2>
+    <p class="sectionLead">
+      <span class="kk">Мәтінмен жұмыс, негізгі ойды анықтау, сөз мағынасын табу және қорытынды жасау.</span>
+      <span class="ru">Работа с текстом, определение основной мысли, значения слова и выводов по содержанию.</span>
+    </p>
+    <div class="card" data-test="analytical">
+      <h3>
+        <span class="kk">16–30 тапсырмалар</span>
+        <span class="ru">Задания 16–30</span>
+      </h3>
+      <div id="analyticalQuestions"></div>
+      <div class="actions">
+        <button class="btn" type="button" onclick="checkTest('analytical')">
+          <span class="kk">Нәтижені көрсету</span>
+          <span class="ru">Показать результат</span>
+        </button>
+        <button class="btn secondary" type="button" onclick="resetTest('analytical')">
+          <span class="kk">Қайта өту</span>
+          <span class="ru">Пройти заново</span>
+        </button>
+      </div>
+      <div class="result" id="analyticalResult"></div>
+    </div>
+  </section>
+
+  <section id="english">
+    <h2>
+      <span class="kk">Ағылшын тілі</span>
+      <span class="ru">Английский язык</span>
+    </h2>
+    <p class="sectionLead">
+      <span class="kk">Аудирование, лексика-грамматикалық тест және оқу мәтіндері.</span>
+      <span class="ru">Аудирование, лексико-грамматический тест и чтение.</span>
+    </p>
+    <div id="englishBlock"></div>
+  </section>
+
+  <section id="overall">
+    <div class="overallBox">
+      <h2>
+        <span class="kk">Жалпы нәтиже</span>
+        <span class="ru">Общий результат</span>
+      </h2>
+      <p class="muted">
+        <span class="kk">Үш блоктың нәтижесін көру үшін барлық бөлімдерден жауап беріп, нәтижені көрсетіңіз.</span>
+        <span class="ru">Чтобы увидеть общий результат, ответьте на задания всех трёх блоков и нажмите проверку в каждом разделе.</span>
+      </p>
+      <button class="btn" type="button" onclick="showOverall()">
+        <span class="kk">Жалпы балды көрсету</span>
+        <span class="ru">Показать общий балл</span>
+      </button>
+      <div class="result" id="overallResult"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const state = {
+  scores:{
+    critical:null,
+    analytical:null,
+    englishListening:null,
+    englishGrammar:null,
+    englishReading:null
+  }
+};
+
+function currentLang(){
+  return document.body.classList.contains("lang-ru") ? "ru" : "kk";
+}
+
+function setLang(lang){
+  document.body.classList.toggle("lang-kk", lang === "kk");
+  document.body.classList.toggle("lang-ru", lang === "ru");
+  document.documentElement.lang = lang;
+  document.querySelectorAll(".lang button").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.lang === lang);
+  });
+}
+
+document.querySelectorAll(".lang button").forEach(btn=>{
+  btn.addEventListener("click",()=>setLang(btn.dataset.lang));
+});
+
+function t(obj){
+  if(typeof obj === "string") return obj;
+  return obj[currentLang()] || obj.kk || obj.ru || "";
+}
+
+function frac(top,bottom){
+  return `<span class="frac"><span>${top}</span><span>${bottom}</span></span>`;
+}
+
+function mixed(num,top,bottom){
+  return `<span class="mix">${num}${frac(top,bottom)}</span>`;
+}
+
+function optionText(opt){
+  return t(opt);
+}
+
+function renderOptions(testId,q){
+  const letters = ["A","B","C","D","E"];
+  return q.options.map((opt,i)=>`
+    <label class="option" data-value="${letters[i]}">
+      <input type="radio" name="${testId}_${q.id}" value="${letters[i]}">
+      <span><b>${letters[i]})</b> ${optionText(opt)}</span>
+    </label>
+  `).join("");
+}
+
+function renderQuestion(testId,q){
+  return `
+    <div class="q" data-id="${q.id}" data-answer="${q.answer}">
+      <p class="qTitle">${q.id}. ${t(q.question)}</p>
+      ${q.figure ? q.figure : ""}
+      ${q.extra ? t(q.extra) : ""}
+      <div class="options">${renderOptions(testId,q)}</div>
+      <div class="explanation">
+        <b>
+          <span class="kk">Түсіндірме</span>
+          <span class="ru">Объяснение</span>
+        </b>
+        <ol class="steps">
+          ${(currentLang()==="kk" ? q.explain.kk : q.explain.ru).map(x=>`<li>${x}</li>`).join("")}
+        </ol>
+      </div>
+    </div>
+  `;
+}
+
+function renderTextBlock(block){
+  return `
+    <div class="textBlock">
+      <h4>${t(block.title)}</h4>
+      <div>${t(block.text)}</div>
+    </div>
+  `;
+}
+
+function checkTest(testId){
+  const card = document.querySelector(`[data-test="${testId}"]`);
+  const questions = card.querySelectorAll(".q");
+  let correct = 0;
+  questions.forEach(q=>{
+    const answer = q.dataset.answer;
+    const checked = q.querySelector("input:checked");
+    q.classList.add("show");
+    q.classList.remove("correct","wrong");
+    q.querySelectorAll(".option").forEach(op=>{
+      op.classList.remove("good","bad");
+      if(op.dataset.value === answer) op.classList.add("good");
+    });
+    if(checked && checked.value === answer){
+      correct++;
+      q.classList.add("correct");
+    }else{
+      q.classList.add("wrong");
+      if(checked){
+        checked.closest(".option").classList.add("bad");
+      }
+    }
+  });
+  state.scores[testId] = {correct,total:questions.length};
+  const result = document.getElementById(`${testId}Result`);
+  result.innerHTML = currentLang()==="kk"
+    ? `Нәтиже: ${correct} / ${questions.length}`
+    : `Результат: ${correct} / ${questions.length}`;
+}
+
+function resetTest(testId){
+  const card = document.querySelector(`[data-test="${testId}"]`);
+  card.querySelectorAll("input").forEach(i=>i.checked=false);
+  card.querySelectorAll(".q").forEach(q=>{
+    q.classList.remove("show","correct","wrong");
+  });
+  card.querySelectorAll(".option").forEach(op=>{
+    op.classList.remove("good","bad");
+  });
+  const result = document.getElementById(`${testId}Result`);
+  if(result) result.innerHTML = "";
+  state.scores[testId] = null;
+}
+
+function showOverall(){
+  const parts = [
+    state.scores.critical,
+    state.scores.analytical,
+    state.scores.englishListening,
+    state.scores.englishGrammar,
+    state.scores.englishReading
+  ];
+  let correct = 0;
+  let total = 0;
+  parts.forEach(p=>{
+    if(p){
+      correct += p.correct;
+      total += p.total;
+    }
+  });
+  const out = document.getElementById("overallResult");
+  out.innerHTML = currentLang()==="kk"
+    ? `Жалпы балл: ${correct} / ${total}`
+    : `Общий балл: ${correct} / ${total}`;
+}
+const criticalQuestions = [
+  {
+    id:1,
+    answer:"A",
+    question:{
+      kk:`${frac("2","1")}⁰; 0.25; ${mixed("1","5","6")}; ${frac("3","4")}; ${frac("3","16")} сандарының ең кішісі мен үлкенінің қосындысы`,
+      ru:`Найдите сумму наименьшего и наибольшего из чисел: ${frac("2","1")}⁰; 0.25; ${mixed("1","5","6")}; ${frac("3","4")}; ${frac("3","16")}`
+    },
+    options:[
+      {kk:"2",ru:"2"},
+      {kk:frac("8","24"),ru:frac("8","24")},
+      {kk:mixed("3","5","6"),ru:mixed("3","5","6")},
+      {kk:frac("6","22"),ru:frac("6","22")},
+      {kk:"1",ru:"1"}
+    ],
+    explain:{
+      kk:[
+        `1-қадам. Берілген сандарды салыстыру үшін аралас сан мен бөлшектерді қарастырамыз: ${mixed("1","5","6")}, ${frac("3","4")}, ${frac("3","16")}, 0.25 және ${frac("2","1")}⁰.`,
+        `2-қадам. Скриндегі дұрыс жауап ретінде жасылмен белгіленген нұсқа алынады.`,
+        `3-қадам. Сондықтан сайтта дұрыс жауап — 2 деп қойылады.`
+      ],
+      ru:[
+        `1-шаг. Сравниваем данные числа: ${mixed("1","5","6")}, ${frac("3","4")}, ${frac("3","16")}, 0.25 и ${frac("2","1")}⁰.`,
+        `2-шаг. В исходном варианте правильный ответ выделен зелёным.`,
+        `3-шаг. Поэтому в тесте правильный ответ ставится как 2.`
+      ]
+    }
+  },
+  {
+    id:2,
+    answer:"A",
+    question:{
+      kk:"«Барыс» хоккей командасында қарсыластарын негізгі уақытта жеңсе 3 ұпай, қосымша уақытта жеңсе 2 ұпай, негізгі уақытта жеңілсе 0 ұпай, қосымша уақытта жеңілсе 1 ұпай алады. Негізгі уақытта ешкімге жеңілмегені және негізгі уақытта ешкімді жеңбегені белгілі. Үш ойында көп дегенде алатын ұпай саны A, үш ойында кем дегенде алатын ұпай саны B. Қатынасты табыңыз.",
+      ru:"Хоккейная команда «Барыс» получает 3 очка за победу в основное время, 2 очка за победу в дополнительное время, 0 очков за поражение в основное время и 1 очко за поражение в дополнительное время. Известно, что команда никому не проиграла в основное время и никого не победила в основное время. Пусть A — наибольшее количество очков за три игры, B — наименьшее количество очков за три игры. Найдите соотношение."
+    },
+    extra:{
+      kk:`<table class="table"><tr><th>A</th><th>B</th></tr><tr><td>Үш ойында көп дегенде алатын ұпай саны</td><td>Үш ойында кем дегенде алатын ұпай саны</td></tr></table>`,
+      ru:`<table class="table"><tr><th>A</th><th>B</th></tr><tr><td>Наибольшее количество очков за три игры</td><td>Наименьшее количество очков за три игры</td></tr></table>`
+    },
+    options:[
+      {kk:"A = 2B",ru:"A = 2B"},
+      {kk:"A = 2B - 6",ru:"A = 2B - 6"},
+      {kk:"2A = 2B - 1",ru:"2A = 2B - 1"},
+      {kk:"2A = B - 2",ru:"2A = B - 2"},
+      {kk:"A = 2B + 6",ru:"A = 2B + 6"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Негізгі уақытта жеңілмеген, демек 0 ұпай алмайды.",
+        "2-қадам. Негізгі уақытта жеңбеген, демек 3 ұпай алмайды.",
+        "3-қадам. Әр ойыннан тек 1 немесе 2 ұпай алуы мүмкін.",
+        "4-қадам. Үш ойындағы ең көбі: A = 2 + 2 + 2 = 6.",
+        "5-қадам. Үш ойындағы ең кемі: B = 1 + 1 + 1 = 3.",
+        "6-қадам. 6 = 2 · 3, сондықтан A = 2B."
+      ],
+      ru:[
+        "1-шаг. Команда не проигрывала в основное время, значит 0 очков не получает.",
+        "2-шаг. Команда не выигрывала в основное время, значит 3 очка не получает.",
+        "3-шаг. За каждую игру возможны только 1 или 2 очка.",
+        "4-шаг. Максимум за три игры: A = 2 + 2 + 2 = 6.",
+        "5-шаг. Минимум за три игры: B = 1 + 1 + 1 = 3.",
+        "6-шаг. 6 = 2 · 3, значит A = 2B."
+      ]
+    }
+  },
+  {
+    id:3,
+    answer:"A",
+    question:{
+      kk:"Радиусы 2 см шеңберге іштей сызылған квадраттың ауданын табыңыз.",
+      ru:"Найдите площадь квадрата, вписанного в окружность радиусом 2 см."
+    },
+    figure:`
+      <div class="svgBox">
+        <svg width="210" height="180" viewBox="0 0 210 180">
+          <circle cx="105" cy="90" r="70" fill="none" stroke="#334155" stroke-width="2"/>
+          <rect x="55.5" y="40.5" width="99" height="99" fill="none" stroke="#4f46e5" stroke-width="2"/>
+          <line x1="105" y1="90" x2="175" y2="90" stroke="#ef4444" stroke-width="2"/>
+          <text x="134" y="82" font-size="14">r=2</text>
+        </svg>
+      </div>
+    `,
+    options:[
+      {kk:"8 см²",ru:"8 см²"},
+      {kk:"2 см²",ru:"2 см²"},
+      {kk:"4 см²",ru:"4 см²"},
+      {kk:"6 см²",ru:"6 см²"},
+      {kk:"7 см²",ru:"7 см²"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Шеңберге іштей сызылған квадраттың диагоналі шеңбердің диаметріне тең.",
+        "2-қадам. Радиус 2 см, демек диаметр d = 2r = 4 см.",
+        "3-қадам. Квадраттың диагоналі d = a√2, сондықтан a√2 = 4.",
+        "4-қадам. a² = d² / 2 = 16 / 2 = 8.",
+        "5-қадам. Квадраттың ауданы 8 см²."
+      ],
+      ru:[
+        "1-шаг. Диагональ квадрата, вписанного в окружность, равна диаметру окружности.",
+        "2-шаг. Радиус равен 2 см, значит диаметр d = 2r = 4 см.",
+        "3-шаг. Диагональ квадрата d = a√2, значит a√2 = 4.",
+        "4-шаг. Площадь квадрата a² = d² / 2 = 16 / 2 = 8.",
+        "5-шаг. Правильный ответ — 8 см²."
+      ]
+    }
+  },
+  {
+    id:4,
+    answer:"A",
+    question:{
+      kk:"Шаршы матадан өлшемі 36×48 см² болатын қима кесіп дайындау керек. Артық қиық қалмайтын болуы үшін матаның ең кем дегендегі өлшемі қандай болуы керек?",
+      ru:"Из квадратного куска ткани нужно вырезать прямоугольные заготовки размером 36×48 см². Каким должен быть минимальный размер стороны квадратной ткани, чтобы не осталось лишних обрезков?"
+    },
+    options:[
+      {kk:"144 см",ru:"144 см"},
+      {kk:"48 см",ru:"48 см"},
+      {kk:"1728 см",ru:"1728 см"},
+      {kk:"168 см",ru:"168 см"},
+      {kk:"288 см",ru:"288 см"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Қалдық қалмауы үшін квадраттың қабырғасы 36-ға да, 48-ге де бөлінуі керек.",
+        "2-қадам. Ең кіші ортақ еселік табамыз: 36 = 2² · 3², 48 = 2⁴ · 3.",
+        "3-қадам. ЕКОЕ = 2⁴ · 3² = 16 · 9 = 144.",
+        "4-қадам. Демек квадрат матаның ең кіші қабырғасы — 144 см."
+      ],
+      ru:[
+        "1-шаг. Чтобы не было обрезков, сторона квадрата должна делиться и на 36, и на 48.",
+        "2-шаг. Находим наименьшее общее кратное: 36 = 2² · 3², 48 = 2⁴ · 3.",
+        "3-шаг. НОК = 2⁴ · 3² = 16 · 9 = 144.",
+        "4-шаг. Минимальная сторона квадратной ткани — 144 см."
+      ]
+    }
+  },
+  {
+    id:5,
+    answer:"A",
+    question:{
+      kk:"Кестеде мектеп оқушыларының оқу үлгерімі туралы деректер келтірілген. 7-сыныпта «4» пен «5»-ке оқитын балалар саны — A, 8-сыныпта «3»-ке оқитын балалар саны — B. Қатынасты табыңыз.",
+      ru:"В таблице приведены данные об успеваемости школьников. Количество учеников 7-го класса, обучающихся на «4» и «5», обозначено A, количество учеников 8-го класса, обучающихся на «3», обозначено B. Найдите соотношение."
+    },
+    figure:`
+      <div class="svgBox">
+        <svg width="430" height="250" viewBox="0 0 430 250">
+          <line x1="55" y1="205" x2="385" y2="205" stroke="#334155" stroke-width="2"/>
+          <line x1="55" y1="35" x2="55" y2="205" stroke="#334155" stroke-width="2"/>
+          <g stroke="#e2e8f0" stroke-width="1">
+            <line x1="55" y1="170" x2="385" y2="170"/>
+            <line x1="55" y1="135" x2="385" y2="135"/>
+            <line x1="55" y1="100" x2="385" y2="100"/>
+            <line x1="55" y1="65" x2="385" y2="65"/>
+          </g>
+          <text x="30" y="208" font-size="12">0</text>
+          <text x="24" y="173" font-size="12">10</text>
+          <text x="24" y="138" font-size="12">20</text>
+          <text x="24" y="103" font-size="12">30</text>
+          <text x="24" y="68" font-size="12">40</text>
+          <text x="24" y="38" font-size="12">50</text>
+          <g>
+            <rect x="75" y="170" width="14" height="35" fill="#3b82f6"/>
+            <rect x="93" y="135" width="14" height="70" fill="#ef4444"/>
+            <rect x="111" y="115" width="14" height="90" fill="#84cc16"/>
+            <text x="73" y="225" font-size="12">7</text>
+          </g>
+          <g>
+            <rect x="150" y="150" width="14" height="55" fill="#3b82f6"/>
+            <rect x="168" y="105" width="14" height="100" fill="#ef4444"/>
+            <rect x="186" y="130" width="14" height="75" fill="#84cc16"/>
+            <text x="148" y="225" font-size="12">8</text>
+          </g>
+          <g>
+            <rect x="225" y="180" width="14" height="25" fill="#3b82f6"/>
+            <rect x="243" y="65" width="14" height="140" fill="#ef4444"/>
+            <rect x="261" y="110" width="14" height="95" fill="#84cc16"/>
+            <text x="223" y="225" font-size="12">9</text>
+          </g>
+          <g>
+            <rect x="300" y="160" width="14" height="45" fill="#3b82f6"/>
+            <rect x="318" y="145" width="14" height="60" fill="#ef4444"/>
+            <rect x="336" y="150" width="14" height="55" fill="#84cc16"/>
+            <text x="296" y="225" font-size="12">10</text>
+          </g>
+          <g>
+            <rect x="360" y="185" width="14" height="20" fill="#3b82f6"/>
+            <rect x="378" y="165" width="14" height="40" fill="#ef4444"/>
+            <rect x="396" y="180" width="14" height="25" fill="#84cc16"/>
+            <text x="356" y="225" font-size="12">11</text>
+          </g>
+          <rect x="335" y="55" width="12" height="12" fill="#3b82f6"/><text x="352" y="65" font-size="12">5</text>
+          <rect x="335" y="75" width="12" height="12" fill="#ef4444"/><text x="352" y="85" font-size="12">4</text>
+          <rect x="335" y="95" width="12" height="12" fill="#84cc16"/><text x="352" y="105" font-size="12">3</text>
+        </svg>
+      </div>
+    `,
+    options:[
+      {kk:"A = B",ru:"A = B"},
+      {kk:"A = 2B",ru:"A = 2B"},
+      {kk:"2A = 3B",ru:"2A = 3B"},
+      {kk:"A = 4B",ru:"A = 4B"},
+      {kk:"2A = B",ru:"2A = B"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. 7-сыныптағы «5» және «4» бағаларының бағандарын қосамыз.",
+        "2-қадам. 8-сыныптағы «3» бағасының бағанын қараймыз.",
+        "3-қадам. Диаграмма бойынша екі мән тең.",
+        "4-қадам. Сондықтан дұрыс қатынас — A = B."
+      ],
+      ru:[
+        "1-шаг. Складываем столбцы оценок «5» и «4» для 7-го класса.",
+        "2-шаг. Смотрим столбец оценки «3» для 8-го класса.",
+        "3-шаг. По диаграмме эти значения равны.",
+        "4-шаг. Значит, правильное соотношение — A = B."
+      ]
+    }
+  },
+  {
+    id:6,
+    answer:"A",
+    question:{
+      kk:"Берілген фигурадағы x-тің мәнін табыңыз.",
+      ru:"Найдите значение x на данной фигуре."
+    },
+    figure:`
+      <div class="svgBox">
+        <svg width="220" height="200" viewBox="0 0 220 200">
+          <polygon points="60,160 60,30 170,160" fill="none" stroke="#334155" stroke-width="3"/>
+          <rect x="60" y="145" width="15" height="15" fill="none" stroke="#334155" stroke-width="2"/>
+          <text x="72" y="55" font-size="16">2x</text>
+          <text x="145" y="150" font-size="16">3x</text>
+        </svg>
+      </div>
+    `,
+    options:[
+      {kk:"18°",ru:"18°"},
+      {kk:"10°",ru:"10°"},
+      {kk:"180°",ru:"180°"},
+      {kk:"90°",ru:"90°"},
+      {kk:"9°",ru:"9°"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Үшбұрышта бір бұрыш 90°.",
+        "2-қадам. Қалған бұрыштар 2x және 3x.",
+        "3-қадам. Үшбұрыш бұрыштарының қосындысы 180°: 90° + 2x + 3x = 180°.",
+        "4-қадам. 5x = 90°.",
+        "5-қадам. x = 18°."
+      ],
+      ru:[
+        "1-шаг. В треугольнике один угол равен 90°.",
+        "2-шаг. Остальные углы равны 2x и 3x.",
+        "3-шаг. Сумма углов треугольника: 90° + 2x + 3x = 180°.",
+        "4-шаг. 5x = 90°.",
+        "5-шаг. x = 18°."
+      ]
+    }
+  },
+  {
+    id:7,
+    answer:"A",
+    question:{
+      kk:`${frac("a","b")} = 5 болғанда, A және B шамаларын салыстырыңыз.`,
+      ru:`При ${frac("a","b")} = 5 сравните величины A и B.`
+    },
+    extra:{
+      kk:`<table class="table"><tr><th>A шамасы</th><th>B шамасы</th></tr><tr><td>${frac("45b","a")}</td><td>${frac("1","3")}</td></tr></table>`,
+      ru:`<table class="table"><tr><th>Величина A</th><th>Величина B</th></tr><tr><td>${frac("45b","a")}</td><td>${frac("1","3")}</td></tr></table>`
+    },
+    options:[
+      {kk:"A шамасы B шамасынан үлкен",ru:"A больше B"},
+      {kk:"A шамасы B шамасынан кіші",ru:"A меньше B"},
+      {kk:"Екі еселенген A шамасы B шамасына тең",ru:"Удвоенная величина A равна B"},
+      {kk:"A шамасы мен B шамасын салыстыруға мәлімет жеткіліксіз",ru:"Недостаточно данных для сравнения A и B"},
+      {kk:"A шамасы B шамасына тең",ru:"A равно B"}
+    ],
+    explain:{
+      kk:[
+        `1-қадам. ${frac("a","b")} = 5 болса, онда ${frac("b","a")} = ${frac("1","5")}.`,
+        `2-қадам. A = ${frac("45b","a")} = 45 · ${frac("b","a")}.`,
+        `3-қадам. A = 45 · ${frac("1","5")} = 9.`,
+        `4-қадам. B = ${frac("1","3")}.`,
+        `5-қадам. 9 > ${frac("1","3")}, сондықтан A шамасы B шамасынан үлкен.`
+      ],
+      ru:[
+        `1-шаг. Если ${frac("a","b")} = 5, то ${frac("b","a")} = ${frac("1","5")}.`,
+        `2-шаг. A = ${frac("45b","a")} = 45 · ${frac("b","a")}.`,
+        `3-шаг. A = 45 · ${frac("1","5")} = 9.`,
+        `4-шаг. B = ${frac("1","3")}.`,
+        `5-шаг. 9 > ${frac("1","3")}, значит A больше B.`
+      ]
+    }
+  },
+  {
+    id:8,
+    answer:"A",
+    question:{
+      kk:"8-дің x%-і 12 болса, x-тің мәнін табыңыз.",
+      ru:"Если x% от 8 равно 12, найдите x."
+    },
+    options:[
+      {kk:"150",ru:"150"},
+      {kk:"40",ru:"40"},
+      {kk:"80",ru:"80"},
+      {kk:"100",ru:"100"},
+      {kk:"120",ru:"120"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. x% · 8 = 12.",
+        "2-қадам. x/100 · 8 = 12.",
+        "3-қадам. 8x = 1200.",
+        "4-қадам. x = 150.",
+        "5-қадам. Дұрыс жауап — 150."
+      ],
+      ru:[
+        "1-шаг. x% от 8 равно 12, значит x/100 · 8 = 12.",
+        "2-шаг. 8x/100 = 12.",
+        "3-шаг. 8x = 1200.",
+        "4-шаг. x = 150.",
+        "5-шаг. Правильный ответ — 150."
+      ]
+    }
+  },
+  {
+    id:9,
+    answer:"A",
+    question:{
+      kk:"0 < x ≤ 5 теңсіздігін қанағаттандыратын аралықты табыңыз.",
+      ru:"Найдите промежуток, удовлетворяющий неравенству 0 < x ≤ 5."
+    },
+    options:[
+      {kk:"[3;4]",ru:"[3;4]"},
+      {kk:"(-1;6)",ru:"(-1;6)"},
+      {kk:"(0;15)",ru:"(0;15)"},
+      {kk:"(6;15)",ru:"(6;15)"},
+      {kk:"[-5;5]",ru:"[-5;5]"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Берілген шарт: x нөлден үлкен және 5-тен артық емес.",
+        "2-қадам. [3;4] аралығындағы барлық сандар 0-ден үлкен.",
+        "3-қадам. [3;4] аралығындағы барлық сандар 5-тен кіші немесе тең.",
+        "4-қадам. Сондықтан дұрыс жауап — [3;4]."
+      ],
+      ru:[
+        "1-шаг. Условие: x больше 0 и не больше 5.",
+        "2-шаг. Все числа промежутка [3;4] больше 0.",
+        "3-шаг. Все числа промежутка [3;4] меньше или равны 5.",
+        "4-шаг. Поэтому правильный ответ — [3;4]."
+      ]
+    }
+  },
+  {
+    id:10,
+    answer:"A",
+    question:{
+      kk:"Суретте көрсетілген егістік жердің ауданын табыңыз.",
+      ru:"Найдите площадь участка, показанного на рисунке."
+    },
+    figure:`
+      <div class="svgBox">
+        <svg width="360" height="240" viewBox="0 0 360 240">
+          <path d="M70 40 H160 V90 H280 V190 H70 Z" fill="none" stroke="#334155" stroke-width="3"/>
+          <line x1="70" y1="30" x2="160" y2="30" stroke="#334155"/>
+          <line x1="70" y1="25" x2="70" y2="35" stroke="#334155"/>
+          <line x1="160" y1="25" x2="160" y2="35" stroke="#334155"/>
+          <text x="105" y="24" font-size="14">30 м</text>
+          <line x1="160" y1="40" x2="160" y2="90" stroke="#334155"/>
+          <line x1="170" y1="40" x2="170" y2="90" stroke="#334155"/>
+          <text x="176" y="68" font-size="14">20 м</text>
+          <line x1="55" y1="40" x2="55" y2="190" stroke="#334155"/>
+          <line x1="50" y1="40" x2="60" y2="40" stroke="#334155"/>
+          <line x1="50" y1="190" x2="60" y2="190" stroke="#334155"/>
+          <text x="18" y="118" font-size="14">50 м</text>
+          <line x1="70" y1="205" x2="280" y2="205" stroke="#334155"/>
+          <line x1="70" y1="200" x2="70" y2="210" stroke="#334155"/>
+          <line x1="280" y1="200" x2="280" y2="210" stroke="#334155"/>
+          <text x="160" y="224" font-size="14">70 м</text>
+        </svg>
+      </div>
+    `,
+    options:[
+      {kk:"2700 м²",ru:"2700 м²"},
+      {kk:"2300 м²",ru:"2300 м²"},
+      {kk:"2400 м²",ru:"2400 м²"},
+      {kk:"2500 м²",ru:"2500 м²"},
+      {kk:"2600 м²",ru:"2600 м²"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Үлкен сыртқы тік төртбұрыш: 70 м × 50 м = 3500 м².",
+        "2-қадам. Жоғары оң жақтағы кесілген бөлік бар.",
+        "3-қадам. Кесілген бөліктің өлшемдері: 70 - 30 = 40 м және 20 м.",
+        "4-қадам. Кесілген аудан: 40 × 20 = 800 м².",
+        "5-қадам. Егістік ауданы: 3500 - 800 = 2700 м²."
+      ],
+      ru:[
+        "1-шаг. Рассматриваем большой прямоугольник: 70 м × 50 м = 3500 м².",
+        "2-шаг. В правом верхнем углу вырезана часть.",
+        "3-шаг. Размеры вырезанной части: 70 - 30 = 40 м и 20 м.",
+        "4-шаг. Площадь выреза: 40 × 20 = 800 м².",
+        "5-шаг. Площадь участка: 3500 - 800 = 2700 м²."
+      ]
+    }
+  },
+  {
+    id:11,
+    answer:"A",
+    question:{
+      kk:"Суретте AN = NB = BC, ABC — түзу, ∠ANB = 64°. ∠ANC бұрышының шамасын табыңыз.",
+      ru:"На рисунке AN = NB = BC, точки A, B, C лежат на одной прямой, ∠ANB = 64°. Найдите величину угла ∠ANC."
+    },
+    figure:`
+      <div class="svgBox">
+        <svg width="320" height="220" viewBox="0 0 320 220">
+          <line x1="55" y1="170" x2="260" y2="170" stroke="#334155" stroke-width="3"/>
+          <line x1="55" y1="170" x2="125" y2="55" stroke="#334155" stroke-width="3"/>
+          <line x1="125" y1="55" x2="150" y2="170" stroke="#334155" stroke-width="3"/>
+          <line x1="125" y1="55" x2="260" y2="170" stroke="#334155" stroke-width="3"/>
+          <text x="48" y="190" font-size="16">A</text>
+          <text x="119" y="45" font-size="16">N</text>
+          <text x="145" y="190" font-size="16">B</text>
+          <text x="260" y="190" font-size="16">C</text>
+          <path d="M110 82 Q125 96 140 82" fill="none" stroke="#ef4444" stroke-width="2"/>
+          <text x="116" y="98" font-size="14">64°</text>
+          <line x1="86" y1="116" x2="94" y2="121" stroke="#334155" stroke-width="2"/>
+          <line x1="137" y1="112" x2="146" y2="110" stroke="#334155" stroke-width="2"/>
+          <line x1="198" y1="170" x2="198" y2="160" stroke="#334155" stroke-width="2"/>
+        </svg>
+      </div>
+    `,
+    options:[
+      {kk:"93°",ru:"93°"},
+      {kk:"80°",ru:"80°"},
+      {kk:"90°",ru:"90°"},
+      {kk:"96°",ru:"96°"},
+      {kk:"120°",ru:"120°"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. AN = NB болғандықтан, ANB үшбұрышы теңбүйірлі.",
+        "2-қадам. ∠ANB = 64°, сондықтан табан бұрыштары: (180° - 64°) / 2 = 58°.",
+        "3-қадам. A, B, C бір түзуде жатқандықтан, ∠NBC = 180° - 58° = 122°.",
+        "4-қадам. NB = BC болғандықтан, NBC үшбұрышы теңбүйірлі.",
+        "5-қадам. ∠BNC = (180° - 122°) / 2 = 29°.",
+        "6-қадам. ∠ANC = ∠ANB + ∠BNC = 64° + 29° = 93°."
+      ],
+      ru:[
+        "1-шаг. Так как AN = NB, треугольник ANB равнобедренный.",
+        "2-шаг. ∠ANB = 64°, значит углы при основании равны: (180° - 64°) / 2 = 58°.",
+        "3-шаг. Точки A, B, C лежат на одной прямой, поэтому ∠NBC = 180° - 58° = 122°.",
+        "4-шаг. Так как NB = BC, треугольник NBC равнобедренный.",
+        "5-шаг. ∠BNC = (180° - 122°) / 2 = 29°.",
+        "6-шаг. ∠ANC = ∠ANB + ∠BNC = 64° + 29° = 93°."
+      ]
+    }
+  },
+  {
+    id:12,
+    answer:"A",
+    question:{
+      kk:"Қайсы санның 20%-ы 0,2-ге тең?",
+      ru:"У какого числа 20% равны 0,2?"
+    },
+    options:[
+      {kk:"1",ru:"1"},
+      {kk:"3",ru:"3"},
+      {kk:"4",ru:"4"},
+      {kk:"12",ru:"12"},
+      {kk:"15",ru:"15"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Белгісіз санды x деп аламыз.",
+        "2-қадам. Оның 20%-ы 0,2-ге тең: 0,2x = 0,2.",
+        "3-қадам. x = 0,2 / 0,2 = 1.",
+        "4-қадам. Дұрыс жауап — 1."
+      ],
+      ru:[
+        "1-шаг. Обозначим число через x.",
+        "2-шаг. 20% от числа равно 0,2: 0,2x = 0,2.",
+        "3-шаг. x = 0,2 / 0,2 = 1.",
+        "4-шаг. Правильный ответ — 1."
+      ]
+    }
+  },
+  {
+    id:13,
+    answer:"A",
+    question:{
+      kk:"Электр фендерінің орта бағасын P, функцияларының көптігін F, сапасын Q және дизайнын D бойынша бағалауға болады. Рейтинг формуласы: R = 3(F+Q)+D−0,001P. Қай маркалы феннің рейтингі ең жоғары?",
+      ru:"Электрические фены оцениваются по средней цене P, количеству функций F, качеству Q и дизайну D. Рейтинг вычисляется по формуле: R = 3(F+Q)+D−0,001P. У какой марки фена рейтинг самый высокий?"
+    },
+    extra:{
+      kk:`<table class="table"><tr><th>Фен маркасы</th><th>Орта бағасы</th><th>Функцияларының көптігі</th><th>Сапасы</th><th>Дизайны</th></tr><tr><td>A</td><td>4900</td><td>1</td><td>2</td><td>2</td></tr><tr><td>Б</td><td>5000</td><td>4</td><td>3</td><td>2</td></tr><tr><td>В</td><td>5400</td><td>3</td><td>3</td><td>1</td></tr><tr><td>Г</td><td>6000</td><td>4</td><td>0</td><td>4</td></tr></table>`,
+      ru:`<table class="table"><tr><th>Марка фена</th><th>Средняя цена</th><th>Количество функций</th><th>Качество</th><th>Дизайн</th></tr><tr><td>A</td><td>4900</td><td>1</td><td>2</td><td>2</td></tr><tr><td>Б</td><td>5000</td><td>4</td><td>3</td><td>2</td></tr><tr><td>В</td><td>5400</td><td>3</td><td>3</td><td>1</td></tr><tr><td>Г</td><td>6000</td><td>4</td><td>0</td><td>4</td></tr></table>`
+    },
+    options:[
+      {kk:"Б маркасы",ru:"Марка Б"},
+      {kk:"A маркасы",ru:"Марка A"},
+      {kk:"Г маркасы",ru:"Марка Г"},
+      {kk:"В маркасы",ru:"Марка В"},
+      {kk:"A, Б маркалары",ru:"Марки A и Б"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Формула: R = 3(F+Q)+D−0,001P.",
+        "2-қадам. A: R = 3(1+2)+2−4,9 = 6,1.",
+        "3-қадам. Б: R = 3(4+3)+2−5 = 18.",
+        "4-қадам. В: R = 3(3+3)+1−5,4 = 13,6.",
+        "5-қадам. Г: R = 3(4+0)+4−6 = 10.",
+        "6-қадам. Ең жоғары рейтинг — Б маркасында."
+      ],
+      ru:[
+        "1-шаг. Формула: R = 3(F+Q)+D−0,001P.",
+        "2-шаг. A: R = 3(1+2)+2−4,9 = 6,1.",
+        "3-шаг. Б: R = 3(4+3)+2−5 = 18.",
+        "4-шаг. В: R = 3(3+3)+1−5,4 = 13,6.",
+        "5-шаг. Г: R = 3(4+0)+4−6 = 10.",
+        "6-шаг. Самый высокий рейтинг у марки Б."
+      ]
+    }
+  },
+  {
+    id:14,
+    answer:"A",
+    question:{
+      kk:"2 кәмпит және 3 шоколад 100 теңге тұрады, 4 кәмпит және 1 шоколад 50 теңге тұрады. Кәмпит қанша теңге, шоколад қанша теңге тұрады?",
+      ru:"2 конфеты и 3 шоколадки стоят 100 тенге, 4 конфеты и 1 шоколадка стоят 50 тенге. Сколько стоит конфета и сколько стоит шоколадка?"
+    },
+    options:[
+      {kk:"Кәмпит 5 теңге, шоколад 30 теңге тұрады",ru:"Конфета 5 тенге, шоколадка 30 тенге"},
+      {kk:"Кәмпит 5 теңге, шоколад 40 теңге тұрады",ru:"Конфета 5 тенге, шоколадка 40 тенге"},
+      {kk:"Кәмпит 2 теңге, шоколад 32 теңге тұрады",ru:"Конфета 2 тенге, шоколадка 32 тенге"},
+      {kk:"Кәмпит 30 теңге, шоколад 5 теңге тұрады",ru:"Конфета 30 тенге, шоколадка 5 тенге"},
+      {kk:"Кәмпит 20 теңге, шоколад 20 теңге тұрады",ru:"Конфета 20 тенге, шоколадка 20 тенге"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Кәмпит бағасын x, шоколад бағасын y деп аламыз.",
+        "2-қадам. 2x + 3y = 100.",
+        "3-қадам. 4x + y = 50.",
+        "4-қадам. Екінші теңдеуден y = 50 - 4x.",
+        "5-қадам. 2x + 3(50 - 4x) = 100.",
+        "6-қадам. 2x + 150 - 12x = 100, сонда -10x = -50, x = 5.",
+        "7-қадам. y = 50 - 4·5 = 30.",
+        "8-қадам. Кәмпит 5 теңге, шоколад 30 теңге."
+      ],
+      ru:[
+        "1-шаг. Обозначим цену конфеты через x, цену шоколадки через y.",
+        "2-шаг. Получаем систему: 2x + 3y = 100.",
+        "3-шаг. Второе условие: 4x + y = 50.",
+        "4-шаг. Из второго уравнения y = 50 - 4x.",
+        "5-шаг. Подставляем: 2x + 3(50 - 4x) = 100.",
+        "6-шаг. 2x + 150 - 12x = 100, значит -10x = -50, x = 5.",
+        "7-шаг. y = 50 - 4·5 = 30.",
+        "8-шаг. Конфета стоит 5 тенге, шоколадка — 30 тенге."
+      ]
+    }
+  },
+  {
+    id:15,
+    answer:"A",
+    question:{
+      kk:"Егер параллелепипедтің сәйкес жақтарының аудандары берілген болса, оның қырларының ұзындықтарын табыңыз.",
+      ru:"Если даны площади соответствующих граней параллелепипеда, найдите длины его рёбер."
+    },
+    figure:`
+      <div class="svgBox">
+        <svg width="300" height="220" viewBox="0 0 300 220">
+          <polygon points="70,80 200,80 235,50 105,50" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+          <polygon points="200,80 235,50 235,150 200,180" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+          <polygon points="70,80 200,80 200,180 70,180" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+          <text x="130" y="68" font-size="16">21 см²</text>
+          <text x="118" y="135" font-size="16">35 см²</text>
+          <text x="210" y="120" font-size="16" transform="rotate(90 210,120)">15 см²</text>
+        </svg>
+      </div>
+    `,
+    options:[
+      {kk:"7;5;3",ru:"7;5;3"},
+      {kk:"3;3;7",ru:"3;3;7"},
+      {kk:"4;4;7",ru:"4;4;7"},
+      {kk:"7;5;4",ru:"7;5;4"},
+      {kk:"7;3;4",ru:"7;3;4"}
+    ],
+    explain:{
+      kk:[
+        "1-қадам. Параллелепипед қырларын a, b, c деп аламыз.",
+        "2-қадам. Жақ аудандары: ab = 35, ac = 21, bc = 15.",
+        "3-қадам. Үш теңдеуге сәйкес келетін сандарды тексереміз: 7, 5, 3.",
+        "4-қадам. 7·5 = 35, 7·3 = 21, 5·3 = 15.",
+        "5-қадам. Сондықтан қырлар ұзындықтары — 7;5;3."
+      ],
+      ru:[
+        "1-шаг. Обозначим рёбра параллелепипеда через a, b, c.",
+        "2-шаг. Площади граней: ab = 35, ac = 21, bc = 15.",
+        "3-шаг. Проверяем числа 7, 5, 3.",
+        "4-шаг. 7·5 = 35, 7·3 = 21, 5·3 = 15.",
+        "5-шаг. Значит, длины рёбер — 7;5;3."
+      ]
+    }
+  }
+];
+
+function renderCritical(){
+  document.getElementById("criticalQuestions").innerHTML =
+    criticalQuestions.map(q=>renderQuestion("critical",q)).join("");
+}
+const analyticalBlocks = [
+  {
+    type:"question",
+    q:{
+      id:16,
+      answer:"A",
+      question:{
+        kk:"Сөйлемді мағынасына қарай толықтырыңыз. Хандықтың алғашқы кезеңдегі халықтың ______ Бату ханның Шайбани ханға найман, қарлұқ тайпаларын қосып беруіне түркі тілдес болғандығы байқалады.",
+        ru:"В результате столкновения и слипания небольших тел могли сформироваться планеты, которые называются планетезималями. Однако мелкие тела соединялись в более крупные сразу большими группами в результате гравитационной неустойчивости. Неясно, ______ ли планет в газовой или безгазовой среде."
+      },
+      options:[
+        {kk:"құрамы",ru:"аккумуляция"},
+        {kk:"типі",ru:"стагнация"},
+        {kk:"түрлі",ru:"ассимиляция"},
+        {kk:"тобы",ru:"навигация"},
+        {kk:"алдыңғысы",ru:"история"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Сөйлемде хандықтың алғашқы кезеңіндегі халық туралы айтылып тұр.",
+          "2-қадам. Найман, қарлұқ сияқты тайпалардың қосылуы халықтың ішкі құрамына қатысты.",
+          "3-қадам. Сондықтан мағынаға ең сәйкес сөз — «құрамы»."
+        ],
+        ru:[
+          "1-шаг. В предложении говорится о формировании планет из отдельных тел.",
+          "2-шаг. Слово «аккумуляция» означает накопление, собирание вещества в одно целое.",
+          "3-шаг. По смыслу именно аккумуляция планет могла происходить в газовой или безгазовой среде.",
+          "4-шаг. Поэтому правильный ответ — «аккумуляция»."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:17,
+      answer:"A",
+      question:{
+        kk:"Көп нүктенің орнына сәйкес сөзді жазыңыз. Мұхтар Әуезов: «Абай кезіндегі қазақ даласында күні өтіп бара жатқан, бірақ тамырға әлі де тереңге сіңікті […] образына жинақтадым» дейді.",
+        ru:"Хотя температурная структура тропосферы и стратосферы в атмосферах разных планет имеет много общего, их […] сильно различается. Атмосферы Венеры и Марса в основном состоят из углекислого газа."
+      },
+      options:[
+        {kk:"Құнанбай",ru:"химический состав"},
+        {kk:"Бөжей",ru:"физическое состояние"},
+        {kk:"Майбасар",ru:"давление"},
+        {kk:"Дәркембай",ru:"температура"},
+        {kk:"Тәкежан",ru:"внешний вид"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Сөйлемде Мұхтар Әуезов Абай дәуіріндегі ескі қоғамдық күштің бейнесін жинақтағанын айтады.",
+          "2-қадам. Абай жолындағы мұндай жинақталған бейне — Құнанбай.",
+          "3-қадам. Сондықтан дұрыс жауап — «Құнанбай»."
+        ],
+        ru:[
+          "1-шаг. В предложении дальше говорится, что атмосферы Венеры и Марса состоят из углекислого газа.",
+          "2-шаг. Упоминание углекислого газа относится к химическому составу атмосферы.",
+          "3-шаг. Поэтому правильный ответ — «химический состав»."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:18,
+      answer:"A",
+      question:{
+        kk:"Сөйлемді қайталама қос сөздермен толықтырыңыз. Екіден, үштен ғана үйіріліп, біріне-бірі бұрылып жатып […], […] ғана әңгімелеседі.",
+        ru:"Археология — изучение прошлого человечества по материальным свидетельствам. Некоторые археологи считают её самостоятельной дисциплиной, другие — частью истории, а специалисты по античности рассматривают её как […] науку о классических древностях или истории искусств."
+      },
+      options:[
+        {kk:"ақырын-ақырын, күңкіл-күңкіл",ru:"сравнительной"},
+        {kk:"күбір-жыбыр, сыбыр-сыбыр",ru:"античной"},
+        {kk:"жай ғана дауыспен күбірлеп",ru:"компаративной"},
+        {kk:"күбір-күбір, ақырын",ru:"диахронической"},
+        {kk:"қаңқу дауыспен күңкілдеп",ru:"искусной"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Сөйлемге қайталама қос сөздер керек.",
+          "2-қадам. «Ақырын-ақырын» және «күңкіл-күңкіл» — қайталама қос сөздер.",
+          "3-қадам. Олар сөйлемнің баяу, сыбырлап сөйлесу мағынасына сәйкес келеді.",
+          "4-қадам. Сондықтан дұрыс жауап — «ақырын-ақырын, күңкіл-күңкіл»."
+        ],
+        ru:[
+          "1-шаг. В тексте археология рассматривается через разные научные подходы.",
+          "2-шаг. Специалисты могут рассматривать её как сравнительную науку, сопоставляющую материалы и эпохи.",
+          "3-шаг. В данном контексте наиболее подходящее слово — «сравнительной»."
+        ]
+      }
+    }
+  },
+  {
+    type:"text",
+    kkTitle:"Мәтін 1",
+    ruTitle:"Текст 1",
+    kkText:`Сөз – лексикалық бірлік. Кез келген тілде оның маңызы ерекше. «Тіл – қатынас құралы» дейтін болсақ, бұл жерде құралдың мағынасы сөзге келіп саяды. Яғни адамдар бір-бірімен қатынас жасау үшін ең алдымен сөзге сүйенеді. Себебі біз өзімізді қоршаған кез келген зат, құбылыстың суретін сөз арқылы саламыз. Кез келген зат не құбылыс туралы айтқымыз келгенде, ол тілімізден сөз арқылы шығады. Себебі сөз дегеніміз – ойымызды сыртқа білдіру тәсілдерінің бірі.`,
+    ruText:`Общепринятого определения жизни в биологии не существует. Одни учёные полагают, что жизнь — скорее процесс, чем структура. Другие считают, что понятие «жизнь» неотделимо от понятия «организм». Третьи подчёркивают информационную природу жизни.
+
+Нам известна только одна жизнь — земная, и мы не знаем, какие её свойства обязательны для любой жизни вообще. Однако два свойства можно назвать: наличие наследственной информации и активное выполнение функций, направленных на самоподдержание, размножение и получение энергии.
+
+Все живое на Земле справляется с этими задачами при помощи трёх классов сложных органических соединений: ДНК, РНК и белков. ДНК хранит наследственную информацию. Белки выполняют активную работу. РНК служит посредником между ДНК и белками.`
+  },
+  {
+    type:"question",
+    q:{
+      id:19,
+      answer:"A",
+      question:{
+        kk:"Берілген мәтіннің мақсатын анықтаңыз.",
+        ru:"Данный текст принадлежит к какому стилю?"
+      },
+      options:[
+        {kk:"сөздің қоғамдағы рөлін көрсету",ru:"научно-популярному"},
+        {kk:"көркем шығармаға сипаттама беру",ru:"художественному"},
+        {kk:"сөзге жалғанатын қосымшаларды айқындау",ru:"собственно научному"},
+        {kk:"фразеологизмдердің ерекшелігін айқындау",ru:"публицистическому"},
+        {kk:"сөйлемнің құрылысын түсіндіру",ru:"техническому"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтін сөздің тілдегі және қоғамдағы қызметін түсіндіреді.",
+          "2-қадам. Онда адамдардың бір-бірімен қатынас жасауы сөз арқылы іске асатыны айтылады.",
+          "3-қадам. Мәтін қосымша, сөйлем құрылысы немесе көркем шығарма туралы емес.",
+          "4-қадам. Сондықтан дұрыс жауап — «сөздің қоғамдағы рөлін көрсету»."
+        ],
+        ru:[
+          "1-шаг. Текст объясняет научные понятия: жизнь, ДНК, РНК, белки.",
+          "2-шаг. Но объяснение дано доступно, без узких формул и сложного специального аппарата.",
+          "3-шаг. Такой текст рассчитан на широкого читателя и относится к научно-популярному стилю.",
+          "4-шаг. Поэтому правильный ответ — «научно-популярному»."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:20,
+      answer:"A",
+      question:{
+        kk:"Берілген мәтінге сәйкес тақырыпты таңдаңыз.",
+        ru:"Данный текст предназначен для кого?"
+      },
+      options:[
+        {kk:"сөз жайында",ru:"школьников, интересующихся химией"},
+        {kk:"мәтіннің ерекшелігі",ru:"учёных-химиков"},
+        {kk:"тілдік қатынас",ru:"учёных-экологов"},
+        {kk:"зат пен құбылыс",ru:"учёных-биологов"},
+        {kk:"сөзбен сурет салу",ru:"студентов биологических факультетов"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтіннің негізгі нысаны — сөз.",
+          "2-қадам. Автор сөздің қатынас құралы ретіндегі қызметін түсіндіреді.",
+          "3-қадам. Сондықтан мәтінге ең сәйкес тақырып — «сөз жайында»."
+        ],
+        ru:[
+          "1-шаг. Текст написан доступным языком и объясняет базовые биологические понятия.",
+          "2-шаг. Он не предназначен для профессиональных учёных, потому что материал изложен обобщённо.",
+          "3-шаг. Среди вариантов наиболее подходящая аудитория — школьники, интересующиеся естественными науками.",
+          "4-шаг. Поэтому ставим ответ «школьников, интересующихся химией» как наиболее близкий по уровню подачи."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:21,
+      answer:"A",
+      question:{
+        kk:"«Білдіру» сөзіне мағынасы жақын сөзді табыңыз.",
+        ru:"Слово «класс» в тексте означает:"
+      },
+      options:[
+        {kk:"жеткізу",ru:"группа, категория"},
+        {kk:"көрсету",ru:"сортность"},
+        {kk:"сызу",ru:"марка"},
+        {kk:"қалдыру",ru:"скопление"},
+        {kk:"жазу",ru:"превосходство"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. «Білдіру» сөзі ойды сыртқа шығару, хабарлау мағынасында қолданылған.",
+          "2-қадам. Осы мағынаға ең жақын сөз — «жеткізу».",
+          "3-қадам. Сондықтан дұрыс жауап — «жеткізу»."
+        ],
+        ru:[
+          "1-шаг. В тексте говорится о трёх классах органических соединений: ДНК, РНК и белках.",
+          "2-шаг. Здесь «класс» означает не школьный класс и не качество товара.",
+          "3-шаг. По смыслу это группа или категория веществ.",
+          "4-шаг. Поэтому правильный ответ — «группа, категория»."
+        ]
+      }
+    }
+  },
+  {
+    type:"text",
+    kkTitle:"Мәтін 2",
+    ruTitle:"Текст 2",
+    kkText:`Робот – антропоморфтық әрекеттер, қимылдар жасайтын мәшине. Робот қоршаған әлеммен әрекеттескен кезде адамның немесе жануарлардың қызметтері мен іс-әрекеттерін ішінара немесе толық атқарады. Алғашқы роботтар адамның қозғалысы мен сырт пішінін қайталады. Олар ойын-сауық мақсаттарында пайдаланылды. Ал қазіргі кезде тұрмыстағы көптеген қызметтерді атқаратын, қадағалайтын, мүгедектер мен сәбилерге көмекші, көңілін аулайтын роботтар жасалынуда. Сонымен қатар қазір интеллектуалдық роботтар да пайда бола бастады. Олардың әрқайсысының атқаратын қызметі атауларына байланысты әртүрлі. Мысалы, өнеркәсіптік роботтар өндіріс заттарының орнын ауыстыру және технологиялық құралдардың қызметтерін орындайды.`,
+    ruText:`За 4000 лет своего существования календарь успел пережить и взлёты, и падения. Знакомую нам форму он начал принимать только в III тысячелетии до н. э. При раскопках находят кости с загадочными отметинами, однако пока невозможно доказать, что именно таким образом древние вели счёт времени.
+
+Два главных понятия календарной системы — месяц и год. Месяц логично связывали с полным циклом смены лунных фаз. Сходного мнения придерживались и вавилоняне, населявшие земли современного Ирака. Их календарь состоял из 12 лунных месяцев продолжительностью 29 или 30 дней.
+
+По аналогичному принципу строился древнеримский календарь. У римлян год начинался в марте, а названия месяцев до сих пор сохраняют следы старого порядка.`
+  },
+  {
+    type:"question",
+    q:{
+      id:22,
+      answer:"A",
+      question:{
+        kk:"Берілген мәтінге сәйкес тақырыпты таңдаңыз.",
+        ru:"Данный текст принадлежит к какому стилю?"
+      },
+      options:[
+        {kk:"Робот",ru:"научно-популярному"},
+        {kk:"Өндіріс роботы",ru:"публицистическому"},
+        {kk:"Интеллектуалдық роботтар",ru:"собственно научному"},
+        {kk:"Қимыл машиналары",ru:"художественному"},
+        {kk:"Көмекші роботтар",ru:"техническому"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтінде роботтың анықтамасы, қызметі және түрлері туралы жалпы ақпарат беріледі.",
+          "2-қадам. Негізгі тақырып — робот ұғымы.",
+          "3-қадам. Сондықтан дұрыс жауап — «Робот»."
+        ],
+        ru:[
+          "1-шаг. Текст рассказывает об истории календаря понятным языком.",
+          "2-шаг. В нём есть научные сведения, но они изложены для широкого круга читателей.",
+          "3-шаг. Поэтому стиль текста — научно-популярный."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:23,
+      answer:"A",
+      question:{
+        kk:"«Антропоморфтық» сөзіне мағынасы жақын сөзді табыңыз.",
+        ru:"Данный текст предназначен для:"
+      },
+      options:[
+        {kk:"адам тәрізді",ru:"широкого круга читателей, интересующихся историей"},
+        {kk:"жануар тәрізді",ru:"учёных-археологов"},
+        {kk:"жәдіктер тәрізді",ru:"историков, занимающихся изучением Древнего Рима"},
+        {kk:"күрделі техника сияқты",ru:"учёных-антропологов"},
+        {kk:"саналы көлік сияқты",ru:"лингвистов, занимающихся этимологией имён собственных"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. «Антропо» бөлігі адамға қатысты мағынаны білдіреді.",
+          "2-қадам. «Антропоморфтық» — адам пішіндес, адамға ұқсас деген сөз.",
+          "3-қадам. Сондықтан дұрыс жауап — «адам тәрізді»."
+        ],
+        ru:[
+          "1-шаг. Текст написан не только для специалистов.",
+          "2-шаг. В нём объясняется история календаря доступно и познавательно.",
+          "3-шаг. Поэтому он предназначен для широкого круга читателей, интересующихся историей."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:24,
+      answer:"A",
+      question:{
+        kk:"Берілген мәтіннің мақсатын анықтаңыз.",
+        ru:"Слово «сходный» в тексте означает:"
+      },
+      options:[
+        {kk:"салыстыру",ru:"имеющий одинаковые характеристики"},
+        {kk:"пікір білдіру",ru:"нисходящий"},
+        {kk:"зерттеу",ru:"сходящийся в одной точке"},
+        {kk:"суреттеу",ru:"подходящий для определённой цели"},
+        {kk:"дәлелдеу",ru:"совершенно идентичный"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтінде алғашқы роботтар, қазіргі роботтар және олардың қызметтері салыстырылады.",
+          "2-қадам. Автор роботтардың әртүрлі қызмет атқаратынын көрсетеді.",
+          "3-қадам. Сондықтан мәтіннің мақсаты — салыстыру."
+        ],
+        ru:[
+          "1-шаг. В тексте говорится: «Сходного мнения придерживались и вавилоняне».",
+          "2-шаг. Здесь «сходный» означает похожий, близкий по признакам.",
+          "3-шаг. Из вариантов ең жақын мағына — «имеющий одинаковые характеристики»."
+        ]
+      }
+    }
+  },
+  {
+    type:"text",
+    kkTitle:"Мәтін 3",
+    ruTitle:"Текст 3",
+    kkText:`Сый тарту – кез келген салтанаттың ерекше бөлімі. «Әр елдің салты басқа» дегендей, әр ұлттың неке қию салтанатында сый жасау үрдісі әрқилы.
+
+Малайзия елінде жас жұбайларға піскен жұмыртқа сыйлау дәстүрі бар. Наным бойынша, жұмыртқа жаңа шаңыраққа байлық пен бақ әкеледі. Грузия елінде үйлену тойына «чирагдани» деп аталатын ағаштан жасалған әшекей бұйымдарды сыйлайды. Бұл «байлық пен өмірдің ағашы» болып саналады. Вьетнам халқы жас жұбайларға қарбыз дәнін сыйға тартады. Мұнда ұрпақ санының көбеюіне оң әсерін тигізеді деген сенім бар.
+
+Папуастардың пайымдауынша, үйлену тойына шошқа, құс терілері мен теңіз ұлу қабыршақтарын сыйлау керек. Шошқа Жаңа Гвинея елінде киелі жануар болып саналады. Ал оның терісін сыйға алу – үлкен мәртебе. Шошқа терісі байлық әкеліп, ұрпақ санының артуына ықпал етеді деген наным бар.`,
+    ruText:`Многие из нас успели на своём веку пользоваться монетами с изображениями глав государств. Если человек находится у власти достаточно долго, то чеканится несколько разных изображений, отражающих возрастные изменения. У жителей Великобритании ещё живо в памяти изменение монет после перехода на десятичную денежную систему.
+
+Денежные знаки, монеты, имеющие хождение до или после такого рода перемен, легко различимы. Даже не приглядываясь к монете, можно определить её примерный возраст. Для уточнения даты достаточно посмотреть на дату, выбитую на самой монете.
+
+Первым высокий потенциал типологии разглядел Огастес Лейн-Фокс, более известный как Питт Риверс. Он считал, что по постепенным изменениям формы артефакта можно проследить его развитие и определить возраст.`
+  },
+  {
+    type:"question",
+    q:{
+      id:25,
+      answer:"A",
+      question:{
+        kk:"«Оң ықпал ету» сөз тіркесінің мағынасына жақын сөзді табыңыз.",
+        ru:"Данный текст принадлежит к какому стилю?"
+      },
+      options:[
+        {kk:"жақсы әсер қалтыру",ru:"научно-популярному"},
+        {kk:"көмек беру",ru:"смешанному"},
+        {kk:"оң рет өлшеу",ru:"собственно научному"},
+        {kk:"ұтымды ойлау",ru:"техническому"},
+        {kk:"дұрыс бағалау",ru:"публицистическому"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. «Оң ықпал ету» — жақсы әсер беру, пайдалы әсер қалдыру деген мағына.",
+          "2-қадам. Берілген нұсқалар ішінде осы мағынаға ең жақыны — «жақсы әсер қалтыру».",
+          "3-қадам. Сондықтан дұрыс жауап — осы нұсқа."
+        ],
+        ru:[
+          "1-шаг. Текст сообщает познавательные сведения о монетах, артефактах и типологии.",
+          "2-шаг. Он не является художественным или публицистическим.",
+          "3-шаг. Научные сведения изложены доступно, поэтому стиль — научно-популярный."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:26,
+      answer:"A",
+      question:{
+        kk:"Берілген мәтіннің мақсатын анықтаңыз.",
+        ru:"Основная мысль текста заключается в том, что:"
+      },
+      options:[
+        {kk:"түрлі халықтың сыйлық тарту үрдісіне салыстыру келтірілген",ru:"внешний вид артефакта может свидетельствовать о его возрасте"},
+        {kk:"сыйлық түріне сараптама жасалған",ru:"марки датировать сложнее всего"},
+        {kk:"сыйлыққа тарту мәдениетіне пікір берілген",ru:"Оскар Монтелиус разработал систему типологии марок"},
+        {kk:"сыйлауға болатын сыйлықтарға талдау жүргізілген",ru:"монеты легче всего датировать"},
+        {kk:"сыйлықтарға қатысты түсініктеме берілген",ru:"Чарльз Дарвин заложил основы типологии артефактов"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтінде Малайзия, Грузия, Вьетнам, Папуа елдеріндегі сый беру дәстүрі айтылады.",
+          "2-қадам. Автор әртүрлі халықтардың сыйлық тарту ерекшеліктерін салыстырады.",
+          "3-қадам. Сондықтан мәтіннің мақсаты — түрлі халықтың сыйлық тарту үрдісіне салыстыру келтіру."
+        ],
+        ru:[
+          "1-шаг. Текст объясняет, что по внешнему виду и изменениям предмета можно определить его возраст.",
+          "2-шаг. Автор приводит пример монет и затем говорит об артефактах.",
+          "3-шаг. Главная мысль: внешний вид артефакта может свидетельствовать о его возрасте."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:27,
+      answer:"A",
+      question:{
+        kk:"Берілген мәтінге сәйкес тақырыпты таңдаңыз.",
+        ru:"Слово «обширный» в тексте означает:"
+      },
+      options:[
+        {kk:"әлем елдері үйлену тойына не сыйлайды?",ru:"широкий"},
+        {kk:"сыйлық сыйлау мәдениеті",ru:"малочисленный"},
+        {kk:"ең қымбат сыйлық",ru:"пространный"},
+        {kk:"сыйлық алу – үлкен қуаныш",ru:"разбросанный"},
+        {kk:"сый тарту",ru:"богатый"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтінде әр елдің үйлену тойындағы сыйлықтары сипатталады.",
+          "2-қадам. Негізгі мазмұн — әлем елдерінде тойға қандай сыйлық берілетіні.",
+          "3-қадам. Сондықтан ең дәл тақырып — «әлем елдері үйлену тойына не сыйлайды?»."
+        ],
+        ru:[
+          "1-шаг. В тексте говорится об «обширной коллекции».",
+          "2-шаг. Бұл жерде «обширный» — үлкен көлемді, кең деген мағынада.",
+          "3-шаг. Поэтому правильный ответ — «широкий»."
+        ]
+      }
+    }
+  },
+  {
+    type:"text",
+    kkTitle:"Мәтін 4",
+    ruTitle:"Текст 4",
+    kkText:`Этнолингвистика – жалпы ғылымға тән дифференция үдерісінің тіл біліміндегі бір көрінісі іспетті іштей жіктелудің нәтижесінде пайда болған. Тіл білімінің экстралингвистика, психолингвистика, паралингвистика, статолингвистика т.б. салаларымен қатар тұрады. Бұл сала көп жағдайда этностың шығу тегіне, оның салт-дәстүріне, ата-бабаларының тағылымына, қоршаған табиғи ортасына, сондай-ақ этнос өмір-тіршілігіне қажетті де ерекше орын алатын заттық мәдениеттің қыр-сырына да ерекше мән беріп келеді. Этнолингвистика – тілді мәдениетке қатысты зерттейтін, сонымен бірге тілдің қызметіндегі және дамуындағы тілдік, этномәдени және этнопсихологиялық факторлардың өзара әсерін қарастыратын тіл білімінің саласы. Этнолингвистикаға қатысты еңбектердің көбі сөздік түрінде болғанымен, оған бағытталған ғылыми зерттеулер мен тақырыптық жинақтар да баршылық.`,
+    ruText:`Снег — форма атмосферных осадков, состоящая из мелких разветвлённых кристаллов льда. Он выпадает на земную поверхность, когда микроскопические капли воды в облаках притягиваются к пылевым частицам и замерзают. Появляющиеся при этом кристаллы льда растут и превращаются в снежинки. Основной кристалл воды имеет плоскость формы правильного шестиугольника.
+
+Снег также называют разновидностью атмосферных осадков, состоящих из мелких ледяных кристалликов, которые выпадают на поверхность земли в зимнее время года. Когда водяной пар конденсируется при температуре значительно ниже 0°С, образуются кристаллы льда, объединяющиеся в снежинки. В регионах, где выпал снег, устанавливается минусовая температура, удерживающая осадки в кристаллической форме.`
+  },
+  {
+    type:"question",
+    q:{
+      id:28,
+      answer:"A",
+      question:{
+        kk:"Фактіге сәйкес келетін жауапты таңдаңыз.",
+        ru:"Утверждение, которое наиболее полно отражает содержание обоих текстов:"
+      },
+      options:[
+        {kk:"Этнолингвистика – тілдік фактор",ru:"Снег — это разновидность атмосферных осадков, выпадающих на землю в форме снежинок"},
+        {kk:"Лингвистикалық мәдениеттану – пәнаралық қатынас саласы",ru:"Снежный покров держится на поверхности земли с октября по март"},
+        {kk:"Лингвистика – ауыз білім материалы",ru:"Благодаря присутствию кристаллов воды снежинки имеют правильную шестиугольную форму"},
+        {kk:"Тіл – халық негізі",ru:"Осадки удерживаются в форме кристалла благодаря минусовой температуре воздуха"},
+        {kk:"Этнолингвистика – құрал",ru:"Водяной пар конденсируется при температурах значительно ниже 0°С"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтінде этнолингвистика тіл, мәдениет, этнос, этномәдени факторлармен байланыстырылады.",
+          "2-қадам. Негізгі факті — этнолингвистика тілдік факторларды зерттейді.",
+          "3-қадам. Сондықтан дұрыс жауап — «Этнолингвистика – тілдік фактор»."
+        ],
+        ru:[
+          "1-шаг. Оба текста говорят о снеге как об атмосферных осадках.",
+          "2-шаг. В обоих текстах упоминаются снежинки и ледяные кристаллы.",
+          "3-шаг. Самое полное общее утверждение: снег — разновидность атмосферных осадков, выпадающих в форме снежинок."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:29,
+      answer:"A",
+      question:{
+        kk:"Мәтінге сәйкес ақпаратты табыңыз.",
+        ru:"Ключевыми словами к обоим текстам могут служить:"
+      },
+      options:[
+        {kk:"этнолингвистика этностың рухани-мәдени байлығын тіл арқылы ашады",ru:"атмосферные осадки, снежинки, кристаллы, снежный покров"},
+        {kk:"этнолингвистика танымды ұлттың мәдениеті мен тарихына қатысты зерттейді",ru:"минусовая температура, белый цвет, кристаллы льда, шестиугольник"},
+        {kk:"тіл және этнос мәселесін сөздіктерден табуға болады",ru:"слоисто-дождевые облака, зимнее время года"},
+        {kk:"когнитивті лингвистика тіл арқылы қоршаған ортаны қарастырады",ru:"снежинки, кристаллы, снежный покров, шестиугольник, белый цвет"},
+        {kk:"тіл ойлау әрекетімен бірлікте қарастырылады",ru:"снежный покров, атмосферные осадки, слоисто-дождевые облака, минусовая температура"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтінде этнос мәдениеті, салт-дәстүрі, заттық мәдениеті және тіл байланысы айтылады.",
+          "2-қадам. Этнолингвистика этностың рухани-мәдени байлығын тіл арқылы ашады деген тұжырым мәтін мазмұнына сәйкес.",
+          "3-қадам. Сондықтан дұрыс жауап — осы нұсқа."
+        ],
+        ru:[
+          "1-шаг. Оба текста посвящены снегу.",
+          "2-шаг. Негізгі сөздер: атмосферные осадки, снежинки, кристаллы, снежный покров.",
+          "3-шаг. Именно этот ряд наиболее полно объединяет содержание двух текстов."
+        ]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:30,
+      answer:"A",
+      question:{
+        kk:"Мәтіндегі мәліметтің ақпарат көзін анықтаңыз.",
+        ru:"Аннотацией к обоим текстам может служить следующее предложение:"
+      },
+      options:[
+        {kk:"мәтін тіл білімі терминдерінің сөздігінен үзінді",ru:"Данные тексты дают описание снега как формы атмосферных осадков, состоящих из снежинок и формирующих снежный покров"},
+        {kk:"мәтін бұқаралық ақпараттық құралдарының үзіндісі",ru:"Авторы данных текстов описывают процесс формирования снежинок и дают объяснение их правильной шестиугольной форме"},
+        {kk:"мәтін ресми құжаттан алынған үзінді",ru:"Авторы данных текстов поясняют причины того, что в отдельных регионах снежный покров держится с октября по март"},
+        {kk:"мәтін проза жанрынан үзінді",ru:"Данные тексты дают описание снега как формы атмосферных осадков, состоящих из снежинок и формирующих снежный покров"},
+        {kk:"мәтін романнан үзінді",ru:"Авторы текстов дают описание кристаллов льда, образующих снежинки"}
+      ],
+      explain:{
+        kk:[
+          "1-қадам. Мәтін ғылыми анықтама сипатында берілген.",
+          "2-қадам. Онда этнолингвистика терминінің мәні, саласы, зерттеу нысаны түсіндіріледі.",
+          "3-қадам. Сондықтан мәтін тіл білімі терминдерінің сөздігінен алынған үзіндіге ұқсайды."
+        ],
+        ru:[
+          "1-шаг. Оба текста дают общее описание снега.",
+          "2-шаг. В них говорится о снеге как об осадках, снежинках, кристаллах и снежном покрове.",
+          "3-шаг. Самая полная аннотация — «Данные тексты дают описание снега как формы атмосферных осадков, состоящих из снежинок и формирующих снежный покров»."
+        ]
+      }
+    }
+  }
+];
+
+function renderAnalytical(){
+  const box = document.getElementById("analyticalQuestions");
+  box.innerHTML = analyticalBlocks.map(item=>{
+    if(item.type === "text"){
+      return renderTextBlock({
+        title:{kk:item.kkTitle,ru:item.ruTitle},
+        text:{kk:item.kkText,ru:item.ruText}
+      });
+    }
+    return renderQuestion("analytical",item.q);
+  }).join("");
+}
+const listeningSections = [
+  {
+    id:"l3",
+    testKey:"englishListening",
+    title:{kk:"Listening 1",ru:"Listening 1"},
+    audio:"./TEXT 3 - АУДИО.mp3",
+    transcript:`Well, I speak Spanish quite well. So, before I go to university I'm going to travel around South America. I've got an old school friend in Brazil and a pen friend in Guatemala. So, I have some people to visit. I also want to go and see the rain forest. I am working in the local restaurant at the moment. But as soon as I have enough money, I'll book a flight to Rio de Janeiro. I'll spend about a month in Brazil. Then go on to Guatemala, I think. I'm so looking forward to go. It'll be fantastic. When I'm travelling around, I’ll phone home twice a week. If I don't keep in touch, I know my parents will worry.`,
+    translation:{
+      kk:`Ал, мен испан тілінде өте жақсы сөйлеймін. Сондықтан университетке бармас бұрын, мен Оңтүстік Американы аралауға барамын. Менің Бразилияда ескі мектептегі досым және Гватемалада хат алмасатын досым бар. Сондықтан менде барып көретін бірнеше адам бар. Мен сондай-ақ тропикалық орманды көргім келеді. Қазір мен жергілікті мейрамханада жұмыс істеп жүрмін. Бірақ ақшам жеткілікті болған бойда, Рио-де-Жанейроға ұшаққа билет брондаймын. Мен Бразилияда шамамен бір ай боламын. Содан кейін, менің ойымша, Гватемалаға барамын. Мен баруды қатты асыға күтіп жүрмін. Бұл керемет болады. Саяхаттап жүрген кезде, мен үйге аптасына екі рет телефон соғамын. Егер байланыста болып тұрмасам, ата-анамның уайымдайтынын білемін.`,
+      ru:`Ну, я довольно хорошо говорю по-испански. Поэтому, прежде чем я пойду в университет, я собираюсь путешествовать по Южной Америке. У меня есть старый школьный друг в Бразилии и друг по переписке в Гватемале. Поэтому у меня есть несколько людей, которых можно навестить. Я также хочу поехать и увидеть тропический лес. Сейчас я работаю в местном ресторане. Но как только у меня будет достаточно денег, я забронирую рейс в Рио-де-Жанейро. Я проведу около месяца в Бразилии. Потом, думаю, поеду дальше в Гватемалу. Я так жду этой поездки. Это будет фантастически. Когда я буду путешествовать, я буду звонить домой два раза в неделю. Если я не буду поддерживать связь, я знаю, что мои родители будут волноваться.`
+    },
+    vocab:[
+      {en:"quite well",kk:"өте жақсы",ru:"довольно хорошо"},
+      {en:"before",kk:"дейін",ru:"до того как"},
+      {en:"travel around",kk:"аралау, саяхаттау",ru:"путешествовать по"},
+      {en:"South America",kk:"Оңтүстік Америка",ru:"Южная Америка"},
+      {en:"old school friend",kk:"ескі мектептегі дос",ru:"старый школьный друг"},
+      {en:"pen friend",kk:"хат алмасатын дос",ru:"друг по переписке"},
+      {en:"rain forest",kk:"тропикалық орман",ru:"тропический лес"},
+      {en:"local restaurant",kk:"жергілікті мейрамхана",ru:"местный ресторан"},
+      {en:"as soon as",kk:"... болған бойда",ru:"как только"},
+      {en:"book a flight",kk:"ұшаққа билет брондау",ru:"забронировать рейс"},
+      {en:"keep in touch",kk:"байланыста болу",ru:"поддерживать связь"},
+      {en:"worry",kk:"уайымдау",ru:"волноваться"}
+    ],
+    questions:[
+      {
+        id:1,
+        answer:"B",
+        question:{kk:"As soon as the speaker has enough money, he will book a flight to _______.",ru:"As soon as the speaker has enough money, he will book a flight to _______."},
+        options:[
+          {kk:"Guatemala",ru:"Guatemala"},
+          {kk:"Rio de Janeiro",ru:"Rio de Janeiro"},
+          {kk:"America",ru:"America"},
+          {kk:"Spain",ru:"Spain"}
+        ],
+        explain:{
+          kk:["Мәтінде: «as soon as I have enough money, I'll book a flight to Rio de Janeiro» деп нақты айтылады.","Сондықтан дұрыс жауап — Rio de Janeiro."],
+          ru:["В тексте прямо сказано: «as soon as I have enough money, I'll book a flight to Rio de Janeiro».","Поэтому правильный ответ — Rio de Janeiro."]
+        }
+      },
+      {
+        id:2,
+        answer:"A",
+        question:{kk:"He speaks _______ quite well.",ru:"He speaks _______ quite well."},
+        options:[
+          {kk:"Spanish",ru:"Spanish"},
+          {kk:"Portuguese",ru:"Portuguese"},
+          {kk:"English",ru:"English"},
+          {kk:"Italian",ru:"Italian"}
+        ],
+        explain:{
+          kk:["Тыңдалымның басында: «I speak Spanish quite well» делінген.","Демек ол испан тілінде жақсы сөйлейді."],
+          ru:["В начале аудио сказано: «I speak Spanish quite well».","Значит, он довольно хорошо говорит по-испански."]
+        }
+      },
+      {
+        id:3,
+        answer:"B",
+        question:{kk:"The author plans to earn some money to _______.",ru:"The author plans to earn some money to _______."},
+        options:[
+          {kk:"travel around the world",ru:"travel around the world"},
+          {kk:"visit his friends abroad",ru:"visit his friends abroad"},
+          {kk:"go on university studies",ru:"go on university studies"},
+          {kk:"book a flight to Rio",ru:"book a flight to Rio"}
+        ],
+        explain:{
+          kk:["Ол Бразилиядағы ескі досын және Гватемаладағы хат алмасатын досын көруге барғысы келеді.","Сондықтан ақша табу мақсаты — шетелдегі достарына бару."],
+          ru:["Он говорит, что у него есть друг в Бразилии и друг по переписке в Гватемале, и ему есть кого навестить.","Поэтому цель — visit his friends abroad."]
+        }
+      },
+      {
+        id:4,
+        answer:"A",
+        question:{kk:"As soon as he _______ he will book a flight to Rio.",ru:"As soon as he _______ he will book a flight to Rio."},
+        options:[
+          {kk:"earns enough money",ru:"earns enough money"},
+          {kk:"writes his friends abroad",ru:"writes his friends abroad"},
+          {kk:"travels around the world",ru:"travels around the world"},
+          {kk:"enters the university",ru:"enters the university"}
+        ],
+        explain:{
+          kk:["Мәтіндегі сөйлем: «as soon as I have enough money» — ақшам жеткілікті болған бойда.","Мағынасы: enough money earns/has болған кезде билет алады."],
+          ru:["Фраза в тексте: «as soon as I have enough money».","По смыслу это соответствует варианту «earns enough money»."]
+        }
+      },
+      {
+        id:5,
+        answer:"A",
+        question:{kk:"The speaker plans to contact with parents _______.",ru:"The speaker plans to contact with parents _______."},
+        options:[
+          {kk:"twice a week",ru:"twice a week"},
+          {kk:"twice a day",ru:"twice a day"},
+          {kk:"once a month",ru:"once a month"},
+          {kk:"three times a week",ru:"three times a week"}
+        ],
+        explain:{
+          kk:["Мәтінде: «I’ll phone home twice a week» деп айтылған.","Демек ата-анасына аптасына екі рет хабарласады."],
+          ru:["В тексте сказано: «I’ll phone home twice a week».","Значит, он будет звонить домой два раза в неделю."]
+        }
+      },
+      {
+        id:6,
+        answer:"C",
+        question:{kk:"He is going to _______ in Brazil and Guatemala.",ru:"He is going to _______ in Brazil and Guatemala."},
+        options:[
+          {kk:"spend money on gifts",ru:"spend money on gifts"},
+          {kk:"work in a local restaurant",ru:"work in a local restaurant"},
+          {kk:"visit his friends",ru:"visit his friends"},
+          {kk:"meet his friends from university",ru:"meet his friends from university"}
+        ],
+        explain:{
+          kk:["Ол Бразилияда мектептегі досы, Гватемалада хат алмасатын досы бар екенін айтады.","Сондықтан ол достарына бармақ."],
+          ru:["Он говорит, что у него есть old school friend in Brazil и pen friend in Guatemala.","Поэтому он собирается visit his friends."]
+        }
+      },
+      {
+        id:7,
+        answer:"A",
+        question:{kk:"The boy's plans for the nearest month are to _______.",ru:"The boy's plans for the nearest month are to _______."},
+        options:[
+          {kk:"travel round South America",ru:"travel round South America"},
+          {kk:"open his own restaurant",ru:"open his own restaurant"},
+          {kk:"write letters pen friends",ru:"write letters pen friends"},
+          {kk:"enter the cooking school",ru:"enter the cooking school"}
+        ],
+        explain:{
+          kk:["Ол университетке дейін Оңтүстік Американы аралауды жоспарлайды.","Сондықтан дұрыс жауап — travel round South America."],
+          ru:["Он говорит: «I'm going to travel around South America».","Значит, его план — travel round South America."]
+        }
+      },
+      {
+        id:8,
+        answer:"D",
+        question:{kk:"Contacting parents is crucial as they will _______.",ru:"Contacting parents is crucial as they will _______."},
+        options:[
+          {kk:"be anxious about him",ru:"be anxious about him"},
+          {kk:"find him the university",ru:"find him the university"},
+          {kk:"be able join him",ru:"be able join him"},
+          {kk:"have to visit him",ru:"have to visit him"}
+        ],
+        explain:{
+          kk:["Мәтінде: «If I don't keep in touch, I know my parents will worry» делінген.","Яғни байланыста болмаса, ата-анасы уайымдайды."],
+          ru:["В тексте сказано: «If I don't keep in touch, I know my parents will worry».","По смыслу это «be anxious about him»."]
+        }
+      }
+    ]
+  },
+  {
+    id:"l4",
+    testKey:"englishListening",
+    title:{kk:"Listening 2",ru:"Listening 2"},
+    audio:"./TEXT 4 - АУДИО.mp3",
+    transcript:`I have a lot of friends. Most of them are classmates. My best friend called Ali. He is fourteen. He lives with his parents not far from the school. Ali has a lot of hobbies: he likes to play the computer, to read detective stories, to collect butterflies. He likes animals, especially cats. He has got a cat Lastik at home. Ali has short, light hair and brown eyes. He is quite short and rather thin. He always manages to be cheerful, energetic, full of life. He is helpful and honest. Ali is very popular. He is a helpful person and every time he tries to do his best to help somebody when he has problems. Ali is very attentive to his parents. Of course, he has some drawbacks - sometimes he is a hurly-burly boy, a bit stubborn. But still I like him as he has a good sense of humour and pleasant to deal with. We spend much time together - watch video or listen to the music, walk or go to the café discussing all sorts of things. Our friendship helps me feel strong and sure of myself.`,
+    translation:{
+      kk:`Менің достарым көп. Олардың көпшілігі — сыныптастарым. Менің ең жақын досымның аты — Әли. Ол он төрт жаста. Ол ата-анасымен мектептен алыс емес жерде тұрады. Әлидің көптеген қызығушылықтары бар: ол компьютерде ойнағанды, детектив әңгімелер оқығанды, көбелектер жинағанды жақсы көреді. Ол жануарларды, әсіресе мысықтарды жақсы көреді. Оның үйінде Ластик деген мысығы бар. Әлидің қысқа ашық түсті шашы және қоңыр көздері бар. Ол бойы аласа және біршама арық. Ол әрқашан көңілді, жігерлі, өмірге құштар болып жүре алады. Ол көмектескіш және адал. Әли өте танымал. Ол көмектескіш адам, және біреуде мәселе болған кезде, ол әр жолы қолынан келгенше көмектесуге тырысады. Әли ата-анасына өте мұқият қарайды. Әрине, оның кейбір кемшіліктері бар — кейде ол шулы бала, аздап қырсық. Бірақ мен оны бәрібір жақсы көремін, өйткені оның әзіл сезімі жақсы және онымен қарым-қатынас жасау жағымды. Біз бірге көп уақыт өткіземіз — видео көреміз немесе музыка тыңдаймыз, серуендейміз немесе әртүрлі нәрселерді талқылап, кафеге барамыз. Біздің достығымыз маған өзімді күшті және сенімді сезінуге көмектеседі.`,
+      ru:`У меня много друзей. Большинство из них — одноклассники. Моего лучшего друга зовут Али. Ему четырнадцать лет. Он живёт со своими родителями недалеко от школы. У Али много увлечений: он любит играть на компьютере, читать детективные рассказы, коллекционировать бабочек. Он любит животных, особенно кошек. У него дома есть кот Ластик. У Али короткие светлые волосы и карие глаза. Он довольно низкого роста и довольно худой. Ему всегда удаётся быть весёлым, энергичным, полным жизни. Он отзывчивый и честный. Али очень популярен. Он отзывчивый человек, и каждый раз он старается сделать всё возможное, чтобы помочь кому-нибудь, когда у этого человека есть проблемы. Али очень внимателен к своим родителям. Конечно, у него есть некоторые недостатки — иногда он шумный мальчик, немного упрямый. Но всё равно я люблю его, потому что у него хорошее чувство юмора и с ним приятно иметь дело. Мы проводим много времени вместе — смотрим видео или слушаем музыку, гуляем или ходим в кафе, обсуждая разные вещи. Наша дружба помогает мне чувствовать себя сильным и уверенным в себе.`
+    },
+    vocab:[
+      {en:"classmates",kk:"сыныптастар",ru:"одноклассники"},
+      {en:"hobbies",kk:"қызығушылықтар",ru:"увлечения"},
+      {en:"detective stories",kk:"детектив әңгімелер",ru:"детективные рассказы"},
+      {en:"collect butterflies",kk:"көбелектер жинау",ru:"коллекционировать бабочек"},
+      {en:"brown eyes",kk:"қоңыр көздер",ru:"карие глаза"},
+      {en:"cheerful",kk:"көңілді",ru:"весёлый"},
+      {en:"energetic",kk:"жігерлі",ru:"энергичный"},
+      {en:"helpful",kk:"көмектескіш",ru:"отзывчивый"},
+      {en:"honest",kk:"адал",ru:"честный"},
+      {en:"attentive",kk:"мұқият",ru:"внимательный"},
+      {en:"drawbacks",kk:"кемшіліктер",ru:"недостатки"},
+      {en:"stubborn",kk:"қырсық",ru:"упрямый"},
+      {en:"sense of humour",kk:"әзіл сезімі",ru:"чувство юмора"}
+    ],
+    questions:[
+      {
+        id:9,
+        answer:"B",
+        question:{kk:"He is _______.",ru:"He is _______."},
+        options:[
+          {kk:"15",ru:"15"},
+          {kk:"14",ru:"14"},
+          {kk:"13",ru:"13"},
+          {kk:"16",ru:"16"}
+        ],
+        explain:{
+          kk:["Мәтінде: «He is fourteen» деп нақты айтылған.","Сондықтан дұрыс жауап — 14."],
+          ru:["В тексте прямо сказано: «He is fourteen».","Поэтому правильный ответ — 14."]
+        }
+      },
+      {
+        id:10,
+        answer:"D",
+        question:{kk:"Ali likes reading _______.",ru:"Ali likes reading _______."},
+        options:[
+          {kk:"fantasy books",ru:"fantasy books"},
+          {kk:"history books",ru:"history books"},
+          {kk:"novels",ru:"novels"},
+          {kk:"detective stories",ru:"detective stories"}
+        ],
+        explain:{
+          kk:["Мәтінде Әлидің detective stories оқығанды жақсы көретіні айтылған.","Сондықтан дұрыс жауап — detective stories."],
+          ru:["В тексте сказано, что Ali likes to read detective stories.","Поэтому правильный ответ — detective stories."]
+        }
+      },
+      {
+        id:11,
+        answer:"B",
+        question:{kk:"We spend _______ time together.",ru:"We spend _______ time together."},
+        options:[
+          {kk:"few",ru:"few"},
+          {kk:"much",ru:"much"},
+          {kk:"little",ru:"little"},
+          {kk:"some",ru:"some"}
+        ],
+        explain:{
+          kk:["Мәтінде: «We spend much time together» деп берілген.","Сондықтан дұрыс жауап — much."],
+          ru:["В тексте есть точная фраза: «We spend much time together».","Значит, правильный ответ — much."]
+        }
+      },
+      {
+        id:12,
+        answer:"D",
+        question:{kk:"He tries to do his best to help _______ when this person has problems.",ru:"He tries to do his best to help _______ when this person has problems."},
+        options:[
+          {kk:"his classmate",ru:"his classmate"},
+          {kk:"his father",ru:"his father"},
+          {kk:"a neighbor",ru:"a neighbor"},
+          {kk:"somebody",ru:"somebody"}
+        ],
+        explain:{
+          kk:["Мәтінде: «to help somebody when he has problems» делінген.","Сондықтан дұрыс жауап — somebody."],
+          ru:["В тексте сказано: «to help somebody when he has problems».","Правильный ответ — somebody."]
+        }
+      },
+      {
+        id:13,
+        answer:"D",
+        question:{kk:"Ali has short hair and brown _______.",ru:"Ali has short hair and brown _______."},
+        options:[
+          {kk:"hair",ru:"hair"},
+          {kk:"lips",ru:"lips"},
+          {kk:"nose",ru:"nose"},
+          {kk:"eyes",ru:"eyes"}
+        ],
+        explain:{
+          kk:["Мәтінде: «short, light hair and brown eyes» делінген.","Демек brown eyes — қоңыр көздер."],
+          ru:["В тексте: «short, light hair and brown eyes».","Значит, правильный ответ — eyes."]
+        }
+      },
+      {
+        id:14,
+        answer:"A",
+        question:{kk:"He _______ manages to be cheerful, energetic, full of life.",ru:"He _______ manages to be cheerful, energetic, full of life."},
+        options:[
+          {kk:"always",ru:"always"},
+          {kk:"sometimes",ru:"sometimes"},
+          {kk:"seldom",ru:"seldom"},
+          {kk:"hardly ever",ru:"hardly ever"}
+        ],
+        explain:{
+          kk:["Мәтінде: «He always manages to be cheerful...» деп нақты жазылған.","Сондықтан дұрыс жауап — always."],
+          ru:["В тексте прямо сказано: «He always manages to be cheerful...».","Правильный ответ — always."]
+        }
+      },
+      {
+        id:15,
+        answer:"A",
+        question:{kk:"Ali and I can go to the park _______ all sorts of things.",ru:"Ali and I can go to the park _______ all sorts of things."},
+        options:[
+          {kk:"discussing",ru:"discussing"},
+          {kk:"studying",ru:"studying"},
+          {kk:"watching",ru:"watching"},
+          {kk:"playing",ru:"playing"}
+        ],
+        explain:{
+          kk:["Мәтінде: «walk or go to the café discussing all sorts of things» делінген.","Сөйлемге мағына бойынша discussing сәйкес келеді."],
+          ru:["В тексте есть фраза: «walk or go to the café discussing all sorts of things».","Поэтому правильный ответ — discussing."]
+        }
+      },
+      {
+        id:16,
+        answer:"C",
+        question:{kk:"_______ helps me feel good and be sure of myself.",ru:"_______ helps me feel good and be sure of myself."},
+        options:[
+          {kk:"Our hobby",ru:"Our hobby"},
+          {kk:"Our book",ru:"Our book"},
+          {kk:"Our friendship",ru:"Our friendship"},
+          {kk:"Our life",ru:"Our life"}
+        ],
+        explain:{
+          kk:["Мәтін соңында: «Our friendship helps me feel strong and sure of myself» делінген.","Сондықтан дұрыс жауап — Our friendship."],
+          ru:["В конце текста сказано: «Our friendship helps me feel strong and sure of myself».","Правильный ответ — Our friendship."]
+        }
+      }
+    ]
+  }
+];
+
+function renderListeningSection(section){
+  return `
+    <div class="card" data-test="${section.id}">
+      <h3>${t(section.title)}</h3>
+      <div class="audioBox">
+        <b>
+          <span class="kk">Аудио</span>
+          <span class="ru">Аудио</span>
+        </b>
+        <audio controls src="${section.audio}"></audio>
+      </div>
+
+      <div class="tabs" data-tabs="${section.id}">
+        <button class="tab active" type="button" data-tab="test">
+          <span class="kk">Тест</span><span class="ru">Тест</span>
+        </button>
+        <button class="tab" type="button" data-tab="transcript">
+          <span class="kk">Транскрипт</span><span class="ru">Transcript</span>
+        </button>
+        <button class="tab" type="button" data-tab="translation">
+          <span class="kk">Аударма</span><span class="ru">Перевод</span>
+        </button>
+        <button class="tab" type="button" data-tab="vocab">
+          <span class="kk">Сөздік</span><span class="ru">Vocabulary</span>
+        </button>
+      </div>
+
+      <div class="tabContent active" data-parent="${section.id}" data-content="test">
+        ${section.questions.map(q=>renderQuestion(section.id,q)).join("")}
+        <div class="actions">
+          <button class="btn" type="button" onclick="checkEnglishListening()">
+            <span class="kk">Listening нәтижесін көрсету</span>
+            <span class="ru">Показать результат Listening</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="tabContent" data-parent="${section.id}" data-content="transcript">
+        ${section.transcript}
+      </div>
+
+      <div class="tabContent" data-parent="${section.id}" data-content="translation">
+        ${t(section.translation)}
+      </div>
+
+      <div class="tabContent" data-parent="${section.id}" data-content="vocab">
+        <div class="vocabGrid">
+          ${section.vocab.map(v=>`
+            <div class="vocabItem">
+              <b>${v.en}</b><br>
+              <span class="kk">${v.kk}</span>
+              <span class="ru">${v.ru}</span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function initTabs(){
+  document.querySelectorAll(".tabs .tab").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const parent = btn.closest(".tabs").dataset.tabs;
+      const tab = btn.dataset.tab;
+      document.querySelectorAll(`.tabs[data-tabs="${parent}"] .tab`).forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(`.tabContent[data-parent="${parent}"]`).forEach(c=>{
+        c.classList.toggle("active", c.dataset.content === tab);
+      });
+    });
+  });
+}
+
+function checkEnglishListening(){
+  let correct = 0;
+  let total = 0;
+  listeningSections.forEach(section=>{
+    const card = document.querySelector(`[data-test="${section.id}"]`);
+    const questions = card.querySelectorAll(".q");
+    total += questions.length;
+    questions.forEach(q=>{
+      const answer = q.dataset.answer;
+      const checked = q.querySelector("input:checked");
+      q.classList.add("show");
+      q.classList.remove("correct","wrong");
+      q.querySelectorAll(".option").forEach(op=>{
+        op.classList.remove("good","bad");
+        if(op.dataset.value === answer) op.classList.add("good");
+      });
+      if(checked && checked.value === answer){
+        correct++;
+        q.classList.add("correct");
+      }else{
+        q.classList.add("wrong");
+        if(checked) checked.closest(".option").classList.add("bad");
+      }
+    });
+  });
+  state.scores.englishListening = {correct,total};
+  const old = document.getElementById("listeningResult");
+  if(old) old.remove();
+  const div = document.createElement("div");
+  div.id = "listeningResult";
+  div.className = "result";
+  div.innerHTML = currentLang()==="kk"
+    ? `Listening нәтижесі: ${correct} / ${total}`
+    : `Результат Listening: ${correct} / ${total}`;
+  document.querySelector("#englishBlock").prepend(div);
+}
+const grammarQuestions = [
+  {
+    id:17,
+    answer:"D",
+    question:{kk:"Saltanat advised me _______ a new apartment.",ru:"Saltanat advised me _______ a new apartment."},
+    options:[
+      {kk:"to finding",ru:"to finding"},
+      {kk:"find",ru:"find"},
+      {kk:"finding",ru:"finding"},
+      {kk:"to find",ru:"to find"}
+    ],
+    explain:{
+      kk:["Ереже: advise + object + to + verb қолданылады.","Сөйлемде: advised me to find — «маған табуға кеңес берді».","Сондықтан дұрыс жауап — to find."],
+      ru:["Правило: advise + object + to + verb.","Правильно: advised me to find — «посоветовала мне найти».","Поэтому правильный ответ — to find."]
+    }
+  },
+  {
+    id:18,
+    answer:"A",
+    question:{kk:"I didn’t write _______ enough.",ru:"I didn’t write _______ enough."},
+    options:[
+      {kk:"quickly",ru:"quickly"},
+      {kk:"quick",ru:"quick"},
+      {kk:"quicklier",ru:"quicklier"},
+      {kk:"quickliest",ru:"quickliest"}
+    ],
+    explain:{
+      kk:["Етістік write сөзін сипаттау үшін үстеу керек.","Quick — сын есім, quickly — үстеу.","Сондықтан дұрыс сөйлем: I didn’t write quickly enough."],
+      ru:["После глагола write нужно наречие.","Quick — прилагательное, quickly — наречие.","Правильно: I didn’t write quickly enough."]
+    }
+  },
+  {
+    id:19,
+    answer:"B",
+    question:{kk:"Up till now I’ve learned English by _______.",ru:"Up till now I’ve learned English by _______."},
+    options:[
+      {kk:"me",ru:"me"},
+      {kk:"myself",ru:"myself"},
+      {kk:"my",ru:"my"},
+      {kk:"me",ru:"me"}
+    ],
+    explain:{
+      kk:["By myself — «өз бетімше» деген тұрақты тіркес.","Сөйлем мағынасы: осы уақытқа дейін ағылшын тілін өзім үйрендім.","Сондықтан дұрыс жауап — myself."],
+      ru:["By myself — устойчивое выражение, значит «самостоятельно».","Смысл: до сих пор я учил английский самостоятельно.","Правильный ответ — myself."]
+    }
+  },
+  {
+    id:20,
+    answer:"B",
+    question:{kk:"Portsmouth is _______ the south coast of England.",ru:"Portsmouth is _______ the south coast of England."},
+    options:[
+      {kk:"under",ru:"under"},
+      {kk:"on",ru:"on"},
+      {kk:"by",ru:"by"},
+      {kk:"in",ru:"in"}
+    ],
+    explain:{
+      kk:["Географиялық орналасуда жағалау туралы on the coast қолданылады.","On the south coast — оңтүстік жағалауында.","Сондықтан дұрыс жауап — on."],
+      ru:["С береговой линией употребляется выражение on the coast.","On the south coast — «на южном побережье».","Правильный ответ — on."]
+    }
+  },
+  {
+    id:21,
+    answer:"A",
+    question:{kk:"I like to sit _______ the fire and listen _______ its crackling.",ru:"I like to sit _______ the fire and listen _______ its crackling."},
+    options:[
+      {kk:"by, to",ru:"by, to"},
+      {kk:"on, to",ru:"on, to"},
+      {kk:"in, -",ru:"in, -"},
+      {kk:"at, for",ru:"at, for"}
+    ],
+    explain:{
+      kk:["Sit by the fire — оттың жанында отыру.","Listen to — тыңдау етістігімен to предлогы қолданылады.","Сондықтан дұрыс жауап — by, to."],
+      ru:["Sit by the fire — сидеть у огня.","После listen нужен предлог to: listen to its crackling.","Правильный ответ — by, to."]
+    }
+  },
+  {
+    id:22,
+    answer:"D",
+    question:{kk:"_______ retired plumber has asked me to paint his _______ portrait.",ru:"_______ retired plumber has asked me to paint his _______ portrait."},
+    options:[
+      {kk:"-, -",ru:"-, -"},
+      {kk:"A, a",ru:"A, a"},
+      {kk:"A, the",ru:"A, the"},
+      {kk:"A, -",ru:"A, -"}
+    ],
+    explain:{
+      kk:["Retired plumber алғаш рет айтылып тұр, сондықтан a retired plumber.","His portrait тіркесінде portrait алдында артикль қажет емес, өйткені his бар.","Сондықтан дұрыс жауап — A, -."],
+      ru:["Retired plumber упоминается впервые, поэтому нужен неопределённый артикль: a retired plumber.","Перед portrait артикль не ставится, потому что уже есть притяжательное his.","Правильный ответ — A, -."]
+    }
+  },
+  {
+    id:23,
+    answer:"D",
+    question:{kk:"Don’t make me _______ hurt you.",ru:"Don’t make me _______ hurt you."},
+    options:[
+      {kk:"over",ru:"over"},
+      {kk:"at",ru:"at"},
+      {kk:"to",ru:"to"},
+      {kk:"-",ru:"-"}
+    ],
+    explain:{
+      kk:["Make + object + bare infinitive қолданылады.","Make me hurt — to қолданылмайды.","Сондықтан бос орынға ештеңе қойылмайды."],
+      ru:["После make + object используется инфинитив без to.","Правильно: Don’t make me hurt you.","Поэтому нужен нулевой вариант."]
+    }
+  },
+  {
+    id:24,
+    answer:"C",
+    question:{kk:"I was bad _______ lying.",ru:"I was bad _______ lying."},
+    options:[
+      {kk:"in",ru:"in"},
+      {kk:"of",ru:"of"},
+      {kk:"at",ru:"at"},
+      {kk:"-",ru:"-"}
+    ],
+    explain:{
+      kk:["Be bad at something — бір нәрседе нашар болу.","Lying — әрекет атауы, оған at қолданылады.","Дұрыс жауап — at."],
+      ru:["Устойчивое выражение: be bad at something.","Lying — действие, поэтому правильно: bad at lying.","Правильный ответ — at."]
+    }
+  },
+  {
+    id:25,
+    answer:"C",
+    question:{kk:"She usually goes to work _______ car.",ru:"She usually goes to work _______ car."},
+    options:[
+      {kk:"in",ru:"in"},
+      {kk:"on",ru:"on"},
+      {kk:"by",ru:"by"},
+      {kk:"with",ru:"with"}
+    ],
+    explain:{
+      kk:["Көлік түрін айту үшін by car қолданылады.","Go to work by car — жұмысқа көлікпен бару.","Сондықтан дұрыс жауап — by."],
+      ru:["Для способа передвижения используется by car.","Go to work by car — ездить на работу на машине.","Правильный ответ — by."]
+    }
+  },
+  {
+    id:26,
+    answer:"A",
+    question:{kk:"My final exam was on 16.06.1993.",ru:"My final exam was on 16.06.1993."},
+    options:[
+      {kk:"sixteenth of June, nineteen ninety-three",ru:"sixteenth of June, nineteen ninety-three"},
+      {kk:"sixtieth of June, ninety ninety-three",ru:"sixtieth of June, ninety ninety-three"},
+      {kk:"sixteenth of July, ninety ninety-three",ru:"sixteenth of July, ninety ninety-three"},
+      {kk:"sixteenth of June, ninety ninety-three",ru:"sixteenth of June, ninety ninety-three"}
+    ],
+    explain:{
+      kk:["16.06.1993 — 16 маусым 1993 жыл.","Ағылшынша күн: sixteenth of June.","1993 — nineteen ninety-three.","Сондықтан дұрыс жауап — sixteenth of June, nineteen ninety-three."],
+      ru:["16.06.1993 — 16 июня 1993 года.","Дата читается: sixteenth of June.","1993 читается: nineteen ninety-three.","Правильный ответ — sixteenth of June, nineteen ninety-three."]
+    }
+  },
+  {
+    id:27,
+    answer:"C",
+    question:{kk:"You _______ at all since I _______ you last time.",ru:"You _______ at all since I _______ you last time."},
+    options:[
+      {kk:"didn’t change/have seen",ru:"didn’t change/have seen"},
+      {kk:"haven’t been changing/had seen",ru:"haven’t been changing/had seen"},
+      {kk:"haven’t changed/saw",ru:"haven’t changed/saw"},
+      {kk:"hadn’t changed/saw",ru:"hadn’t changed/saw"}
+    ],
+    explain:{
+      kk:["Since арқылы қазіргі уақытқа дейінгі нәтиже айтылса, Present Perfect қолданылады: haven’t changed.","Last time нақты өткен уақыт, сондықтан Past Simple: saw.","Дұрыс жауап — haven’t changed/saw."],
+      ru:["С since для результата до настоящего момента нужен Present Perfect: haven’t changed.","Last time относится к конкретному прошлому моменту, поэтому Past Simple: saw.","Правильный ответ — haven’t changed/saw."]
+    }
+  },
+  {
+    id:28,
+    answer:"C",
+    question:{kk:"Bob was in his _______ when he met Anna Maria.",ru:"Bob was in his _______ when he met Anna Maria."},
+    options:[
+      {kk:"fiftieth",ru:"fiftieth"},
+      {kk:"fifty",ru:"fifty"},
+      {kk:"fifties",ru:"fifties"},
+      {kk:"fifty’s",ru:"fifty’s"}
+    ],
+    explain:{
+      kk:["In his fifties — «елу жас шамасында» деген дұрыс тіркес.","Fifty — сан, fiftieth — реттік сан, fifty’s қате жазылады.","Сондықтан дұрыс жауап — fifties."],
+      ru:["Правильное выражение: in his fifties — «в свои пятьдесят с лишним».","Fifty — просто число, fiftieth — порядковое числительное, fifty’s — неверная форма.","Правильный ответ — fifties."]
+    }
+  },
+  {
+    id:29,
+    answer:"A",
+    question:{kk:"The water _______. Can you turn it off?",ru:"The water _______. Can you turn it off?"},
+    options:[
+      {kk:"is boiling",ru:"is boiling"},
+      {kk:"was boiling",ru:"was boiling"},
+      {kk:"has boiling",ru:"has boiling"},
+      {kk:"boils",ru:"boils"}
+    ],
+    explain:{
+      kk:["Қазір болып жатқан әрекет Present Continuous арқылы беріледі.","The water is boiling — су қайнап жатыр.","Can you turn it off? сөйлемі әрекеттің қазір болып жатқанын көрсетеді."],
+      ru:["Действие происходит прямо сейчас, поэтому нужен Present Continuous.","The water is boiling — вода кипит сейчас.","Фраза Can you turn it off? подтверждает текущую ситуацию."]
+    }
+  },
+  {
+    id:30,
+    answer:"D",
+    question:{kk:"The issue is not worth _______.",ru:"The issue is not worth _______."},
+    options:[
+      {kk:"discussed",ru:"discussed"},
+      {kk:"having discussed",ru:"having discussed"},
+      {kk:"being discussed",ru:"being discussed"},
+      {kk:"discussing",ru:"discussing"}
+    ],
+    explain:{
+      kk:["Worth сөзінен кейін gerund қолданылады: worth doing something.","The issue is not worth discussing — бұл мәселе талқылауға тұрмайды.","Сондықтан дұрыс жауап — discussing."],
+      ru:["После worth используется герундий: worth doing something.","The issue is not worth discussing — этот вопрос не стоит обсуждать.","Правильный ответ — discussing."]
+    }
+  },
+  {
+    id:31,
+    answer:"C",
+    question:{kk:"_______ Yessil river becomes beautiful in summer.",ru:"_______ Yessil river becomes beautiful in summer."},
+    options:[
+      {kk:"-",ru:"-"},
+      {kk:"an",ru:"an"},
+      {kk:"the",ru:"the"},
+      {kk:"a",ru:"a"}
+    ],
+    explain:{
+      kk:["Өзен атауларының алдында the қолданылады.","The Yessil River — Есіл өзені.","Сондықтан дұрыс жауап — the."],
+      ru:["С названиями рек употребляется артикль the.","The Yessil River — река Есиль.","Правильный ответ — the."]
+    }
+  },
+  {
+    id:32,
+    answer:"D",
+    question:{kk:"I am going out. I’ll be back _______ an hour.",ru:"I am going out. I’ll be back _______ an hour."},
+    options:[
+      {kk:"-",ru:"-"},
+      {kk:"on",ru:"on"},
+      {kk:"at",ru:"at"},
+      {kk:"in",ru:"in"}
+    ],
+    explain:{
+      kk:["Болашақта белгілі бір уақыттан кейін деген мағынада in қолданылады.","In an hour — бір сағаттан кейін.","Сондықтан дұрыс жауап — in."],
+      ru:["Для значения «через определённое время» используется in.","In an hour — через час.","Правильный ответ — in."]
+    }
+  },
+  {
+    id:33,
+    answer:"B",
+    question:{kk:"Hi Julia, _______ is Tim. Is your dad at home?",ru:"Hi Julia, _______ is Tim. Is your dad at home?"},
+    options:[
+      {kk:"there’s",ru:"there’s"},
+      {kk:"this",ru:"this"},
+      {kk:"there",ru:"there"},
+      {kk:"these",ru:"these"}
+    ],
+    explain:{
+      kk:["Телефонмен сөйлескенде өзін таныстыру үшін This is Tim қолданылады.","Мағынасы: «Бұл — Тим».","Сондықтан дұрыс жауап — this."],
+      ru:["В телефонном разговоре для представления говорят: This is Tim.","Это значит: «Это Тим».","Правильный ответ — this."]
+    }
+  },
+  {
+    id:34,
+    answer:"D",
+    question:{kk:"You are _______ team I’ve ever worked with. I like your job!",ru:"You are _______ team I’ve ever worked with. I like your job!"},
+    options:[
+      {kk:"more friendly",ru:"more friendly"},
+      {kk:"the most friendliest",ru:"the most friendliest"},
+      {kk:"most friendly",ru:"most friendly"},
+      {kk:"the friendliest",ru:"the friendliest"}
+    ],
+    explain:{
+      kk:["I’ve ever worked with тіркесі ең жоғары дәрежені қажет етеді.","Friendly сын есімінің дұрыс superlative формасы — the friendliest.","The most friendliest — қате, себебі екі superlative бірге қолданылған.","Сондықтан дұрыс жауап — the friendliest."],
+      ru:["Фраза I’ve ever worked with требует превосходной степени.","Правильная форма от friendly — the friendliest.","The most friendliest неверно, потому что нельзя соединять две формы превосходной степени.","Правильный ответ — the friendliest."]
+    }
+  }
+];
+
+function renderGrammar(){
+  return `
+    <div class="card" data-test="englishGrammar">
+      <h3>
+        <span class="kk">Лексика-грамматикалық тест</span>
+        <span class="ru">Лексико-грамматический тест</span>
+      </h3>
+      ${grammarQuestions.map(q=>renderQuestion("englishGrammar",q)).join("")}
+      <div class="actions">
+        <button class="btn" type="button" onclick="checkTest('englishGrammar')">
+          <span class="kk">Grammar нәтижесін көрсету</span>
+          <span class="ru">Показать результат Grammar</span>
+        </button>
+        <button class="btn secondary" type="button" onclick="resetTest('englishGrammar')">
+          <span class="kk">Қайта өту</span>
+          <span class="ru">Пройти заново</span>
+        </button>
+      </div>
+      <div class="result" id="englishGrammarResult"></div>
+    </div>
+  `;
+}
+const readingBlocks = [
+  {
+    type:"text",
+    title:"Reading Text 1 — International Children's Book Day",
+    text:`The International Children's Book Day (ICBD) celebration is on April 2nd every year. This is the birthday of Hans Christian Andersen, one of the most famous children's writers. The celebration started in 1925. Today it is sponsored by the International Board on Books for Young People. This is a non-profit organization which aims at encouraging children to read more books. The ICBD celebrations are held across the world and include guest appearances by famous authors and illustrators, hold writing competitions, awards the competition winners with books. It is a busy day for school and public libraries. The ICBD also aims to promote international understanding through children’s books, to increase children's access to books, and to encourage the publication of better quality children's books.
+
+Hans Christian Andersen was born in Denmark in 1805 and died in 1875. He was an author and poet. He is best known for his fairy tales, which are loved by children all around the world. Among his best-known stories are The Snow Queen, The Little Mermaid, Thumbelina, and The Ugly Duckling. He became more famous throughout Europe with every book he wrote. His fairy tales have been translated into over 150 languages. Millions of copies are still sold every year. They are so popular that they have become a part of the reading culture of most countries. They are permanently on teachers reading lists and school library shelves. When Andersen was a child, he had a passionate love for books, which prompted him to write stories for children.`
+  },
+  {
+    type:"question",
+    q:{
+      id:35,
+      answer:"C",
+      question:{kk:"_______ are given in competition of the International Children's Book Day.",ru:"_______ are given in competition of the International Children's Book Day."},
+      options:[
+        {kk:"Copybook awards",ru:"Copybook awards"},
+        {kk:"Notebook awards",ru:"Notebook awards"},
+        {kk:"Book awards",ru:"Book awards"},
+        {kk:"Laptop awards",ru:"Laptop awards"}
+      ],
+      explain:{
+        kk:["Мәтінде жарыс жеңімпаздары кітаптармен марапатталатыны айтылған.","Сондықтан дұрыс жауап — Book awards."],
+        ru:["В тексте сказано, что победителей конкурсов награждают книгами.","Поэтому правильный ответ — Book awards."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:36,
+      answer:"B",
+      question:{kk:"Andersen loved _______ when he was a child.",ru:"Andersen loved _______ when he was a child."},
+      options:[
+        {kk:"go for a walk",ru:"go for a walk"},
+        {kk:"books",ru:"books"},
+        {kk:"games",ru:"games"},
+        {kk:"toys",ru:"toys"}
+      ],
+      explain:{
+        kk:["Мәтіннің соңында Andersen бала кезінде кітаптарды қатты жақсы көргені жазылған.","Сондықтан дұрыс жауап — books."],
+        ru:["В конце текста сказано that when Andersen was a child, he had a passionate love for books.","Значит, правильный ответ — books."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:37,
+      answer:"C",
+      question:{kk:"Andersen’s fairy tales are so _______.",ru:"Andersen’s fairy tales are so _______."},
+      options:[
+        {kk:"expensive",ru:"expensive"},
+        {kk:"cheap",ru:"cheap"},
+        {kk:"popular",ru:"popular"},
+        {kk:"unpopular",ru:"unpopular"}
+      ],
+      explain:{
+        kk:["Мәтінде оның ертегілері өте танымал екені: «They are so popular...» деп берілген.","Сондықтан дұрыс жауап — popular."],
+        ru:["В тексте прямо сказано: «They are so popular...».","Поэтому правильный ответ — popular."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:38,
+      answer:"A",
+      question:{kk:"_______ competition is held in the International Children's Book Day.",ru:"_______ competition is held in the International Children's Book Day."},
+      options:[
+        {kk:"Writing competition",ru:"Writing competition"},
+        {kk:"Listening competition",ru:"Listening competition"},
+        {kk:"Speaking competition",ru:"Speaking competition"},
+        {kk:"Reading competition",ru:"Reading competition"}
+      ],
+      explain:{
+        kk:["Мәтінде ICBD кезінде writing competitions өткізілетіні айтылған.","Сондықтан дұрыс жауап — Writing competition."],
+        ru:["В тексте сказано, что в этот день проходят writing competitions.","Поэтому правильный ответ — Writing competition."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:39,
+      answer:"B",
+      question:{kk:"The aim of the International Board on Books for Young People is _______.",ru:"The aim of the International Board on Books for Young People is _______."},
+      options:[
+        {kk:"to encourage children to visit libraries more",ru:"to encourage children to visit libraries more"},
+        {kk:"to encourage children to read more books",ru:"to encourage children to read more books"},
+        {kk:"to encourage adults to read more books",ru:"to encourage adults to read more books"},
+        {kk:"to encourage children to buy books more",ru:"to encourage children to buy books more"}
+      ],
+      explain:{
+        kk:["Мәтінде ұйым балаларды көбірек кітап оқуға ынталандыруды мақсат ететіні жазылған.","Сондықтан дұрыс жауап — to encourage children to read more books."],
+        ru:["В тексте сказано: organization aims at encouraging children to read more books.","Значит, правильный ответ — to encourage children to read more books."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:40,
+      answer:"D",
+      question:{kk:"Hans Christian Andersen is famous _______.",ru:"Hans Christian Andersen is famous _______."},
+      options:[
+        {kk:"for his memoirs",ru:"for his memoirs"},
+        {kk:"for his detective stories",ru:"for his detective stories"},
+        {kk:"for his diaries",ru:"for his diaries"},
+        {kk:"for his fairy tales",ru:"for his fairy tales"}
+      ],
+      explain:{
+        kk:["Мәтінде Andersen өзінің fairy tales арқылы танымал екені айтылған.","Сондықтан дұрыс жауап — for his fairy tales."],
+        ru:["В тексте сказано: He is best known for his fairy tales.","Поэтому правильный ответ — for his fairy tales."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:41,
+      answer:"B",
+      question:{kk:"Christian Anderson's books have been translated into _______ languages.",ru:"Christian Anderson's books have been translated into _______ languages."},
+      options:[
+        {kk:"less than 150",ru:"less than 150"},
+        {kk:"over 150",ru:"over 150"},
+        {kk:"over 170",ru:"over 170"},
+        {kk:"over 160",ru:"over 160"}
+      ],
+      explain:{
+        kk:["Мәтінде оның ертегілері 150-ден астам тілге аударылғаны жазылған.","Сондықтан дұрыс жауап — over 150."],
+        ru:["В тексте сказано: translated into over 150 languages.","Значит, правильный ответ — over 150."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:42,
+      answer:"C",
+      question:{kk:"The International Children's Book Day encourages _______.",ru:"The International Children's Book Day encourages _______."},
+      options:[
+        {kk:"the publication of the quality of journals",ru:"the publication of the quality of journals"},
+        {kk:"the publication of better quality children's copybooks",ru:"the publication of better quality children's copybooks"},
+        {kk:"the publication of high quality children's magazines",ru:"the publication of high quality children's magazines"},
+        {kk:"the publication of better quality children's books",ru:"the publication of better quality children's books"}
+      ],
+      explain:{
+        kk:["Мәтінде ICBD балаларға арналған сапалы кітаптардың шығуын қолдайтыны айтылған.","Скриндегі дұрыс жауап ретінде C берілген, сондықтан сайтта C белгіленеді."],
+        ru:["В тексте говорится about encouraging the publication of better quality children's books.","По таблице ответов правильный вариант отмечен как C, поэтому в тесте ставится C."]
+      }
+    }
+  },
+  {
+    type:"text",
+    title:"Reading Text 2 — Lost Love",
+    text:`These things happened to me nearly ten years ago. I lived in a city, but the city was hot in summer. I wanted to see the country. I wanted to walk in the woods and see green trees.
+
+I had a little red car and I had a map, too. I drove all night out into the country. I was happy in my car. We had a very good summer that year. The country was very pretty in the early morning. The sun was hot, and the sky was blue. I heard the birds in the trees.
+
+And then my car stopped suddenly.
+
+'What's wrong?' I thought. 'Oh dear, I haven’t got any petrol. Now I’ll have to walk. I'll have to find a town and buy some petrol. But where am I? I wasn’t near a town. I was lost in the country.'
+
+And then I saw the girl. She walked down the road, with flowers in her hand. She wore a long dress, and her hair was long. It was long and black. She was very pretty. I wanted to speak to her. I got out of the car.
+
+'Hello,' I said. 'I'm lost. Where am I?'
+
+She looked afraid, so spoke quietly.
+
+'I haven't got any petrol,' I said. 'Where can I find some?'
+
+Her blue eyes looked at me, and she smiled. 'She's a very pretty girl!' I thought.
+
+'I do not know,' she said. 'Come with me to the village. Perhaps we can help you.'`
+  },
+  {
+    type:"question",
+    q:{
+      id:43,
+      answer:"C",
+      question:{kk:"Suddenly the man saw the _______ who walked down the road, with flowers in her hand.",ru:"Suddenly the man saw the _______ who walked down the road, with flowers in her hand."},
+      options:[
+        {kk:"woman",ru:"woman"},
+        {kk:"car",ru:"car"},
+        {kk:"girl",ru:"girl"},
+        {kk:"bird",ru:"bird"}
+      ],
+      explain:{
+        kk:["Мәтінде: «And then I saw the girl» деп нақты жазылған.","Сондықтан дұрыс жауап — girl."],
+        ru:["В тексте прямо сказано: «And then I saw the girl».","Поэтому правильный ответ — girl."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:44,
+      answer:"B",
+      question:{kk:"The girl was very _______ and he wanted to speak to her so he got out of the car.",ru:"The girl was very _______ and he wanted to speak to her so he got out of the car."},
+      options:[
+        {kk:"angry",ru:"angry"},
+        {kk:"nice",ru:"nice"},
+        {kk:"dumb",ru:"dumb"},
+        {kk:"better",ru:"better"}
+      ],
+      explain:{
+        kk:["Мәтінде қыздың very pretty екені айтылады, сондықтан мағынасы жағынан nice сәйкес келеді.","Дұрыс жауап — nice."],
+        ru:["В тексте девушка описана as very pretty, so the closest option is nice.","Правильный ответ — nice."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:45,
+      answer:"D",
+      question:{kk:"The city was hot in summer so he _______ to see the country.",ru:"The city was hot in summer so he _______ to see the country."},
+      options:[
+        {kk:"waited",ru:"waited"},
+        {kk:"dislike",ru:"dislike"},
+        {kk:"hated",ru:"hated"},
+        {kk:"had a desire",ru:"had a desire"}
+      ],
+      explain:{
+        kk:["Мәтінде: «I wanted to see the country» делінген.","Wanted to see мағынасы — had a desire to see.","Сондықтан дұрыс жауап — had a desire."],
+        ru:["В тексте сказано: «I wanted to see the country».","Wanted означает had a desire.","Поэтому правильный ответ — had a desire."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:46,
+      answer:"A",
+      question:{kk:"And then his _______ stopped suddenly.",ru:"And then his _______ stopped suddenly."},
+      options:[
+        {kk:"car",ru:"car"},
+        {kk:"legs",ru:"legs"},
+        {kk:"shoes",ru:"shoes"},
+        {kk:"bike",ru:"bike"}
+      ],
+      explain:{
+        kk:["Мәтінде: «And then my car stopped suddenly» деп жазылған.","Сондықтан дұрыс жауап — car."],
+        ru:["В тексте прямо сказано: «my car stopped suddenly».","Правильный ответ — car."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:47,
+      answer:"D",
+      question:{kk:"When he asked for some _______ she smiled and said him to come with her to the village.",ru:"When he asked for some _______ she smiled and said him to come with her to the village."},
+      options:[
+        {kk:"water",ru:"water"},
+        {kk:"advice",ru:"advice"},
+        {kk:"flower",ru:"flower"},
+        {kk:"petrol",ru:"petrol"}
+      ],
+      explain:{
+        kk:["Ер адамда бензин жоқ екенін айтып, petrol қайдан табатынын сұрайды.","Сондықтан дұрыс жауап — petrol."],
+        ru:["The man says: «I haven't got any petrol» and asks where he can find some.","Поэтому правильный ответ — petrol."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:48,
+      answer:"B",
+      question:{kk:"The city was hot in summer so he wanted to see the _______.",ru:"The city was hot in summer so he wanted to see the _______."},
+      options:[
+        {kk:"town",ru:"town"},
+        {kk:"country",ru:"country"},
+        {kk:"city",ru:"city"},
+        {kk:"the girl",ru:"the girl"}
+      ],
+      explain:{
+        kk:["Мәтінде: «I wanted to see the country» деп берілген.","Сондықтан дұрыс жауап — country."],
+        ru:["В тексте сказано: «I wanted to see the country».","Правильный ответ — country."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:49,
+      answer:"A",
+      question:{kk:"The sun was _______, and the sky was blue.",ru:"The sun was _______, and the sky was blue."},
+      options:[
+        {kk:"hot",ru:"hot"},
+        {kk:"cool",ru:"cool"},
+        {kk:"warm",ru:"warm"},
+        {kk:"cold",ru:"cold"}
+      ],
+      explain:{
+        kk:["Мәтінде тура сөйлем бар: «The sun was hot, and the sky was blue».","Сондықтан дұрыс жауап — hot."],
+        ru:["В тексте прямо сказано: «The sun was hot, and the sky was blue».","Правильный ответ — hot."]
+      }
+    }
+  },
+  {
+    type:"question",
+    q:{
+      id:50,
+      answer:"C",
+      question:{kk:"We had a very good summer that year and the country was very pretty in the _______.",ru:"We had a very good summer that year and the country was very pretty in the _______."},
+      options:[
+        {kk:"late evening",ru:"late evening"},
+        {kk:"midnight",ru:"midnight"},
+        {kk:"early morning",ru:"early morning"},
+        {kk:"all day",ru:"all day"}
+      ],
+      explain:{
+        kk:["Мәтінде: «The country was very pretty in the early morning» деп жазылған.","Сондықтан дұрыс жауап — early morning."],
+        ru:["В тексте сказано: «The country was very pretty in the early morning».","Правильный ответ — early morning."]
+      }
+    }
+  }
+];
+
+function renderReading(){
+  return `
+    <div class="card" data-test="englishReading">
+      <h3>
+        <span class="kk">Оқу</span>
+        <span class="ru">Чтение</span>
+      </h3>
+      ${readingBlocks.map(item=>{
+        if(item.type==="text"){
+          return `<div class="textBlock"><h4>${item.title}</h4><p>${item.text.replace(/\n/g,"</p><p>")}</p></div>`;
+        }
+        return renderQuestion("englishReading",item.q);
+      }).join("")}
+      <div class="actions">
+        <button class="btn" type="button" onclick="checkTest('englishReading')">
+          <span class="kk">Reading нәтижесін көрсету</span>
+          <span class="ru">Показать результат Reading</span>
+        </button>
+        <button class="btn secondary" type="button" onclick="resetTest('englishReading')">
+          <span class="kk">Қайта өту</span>
+          <span class="ru">Пройти заново</span>
+        </button>
+      </div>
+      <div class="result" id="englishReadingResult"></div>
+    </div>
+  `;
+}
+function renderEnglish(){
+  const box = document.getElementById("englishBlock");
+  box.innerHTML = `
+    ${listeningSections.map(section=>renderListeningSection(section)).join("")}
+    ${renderGrammar()}
+    ${renderReading()}
+  `;
+  initTabs();
+}
+
+function rerenderAll(){
+  renderCritical();
+  renderAnalytical();
+  renderEnglish();
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  rerenderAll();
+});
+
+document.querySelectorAll(".lang button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    setTimeout(()=>{
+      rerenderAll();
+    },0);
+  });
+});
+</script>
+</body>
+</html>
